@@ -4,6 +4,9 @@ body {
     margin: 0;
 }
 
+a{
+    text-decoration: none;
+}
 #page-container {
     width: 100%;
     height: 100%;
@@ -24,7 +27,8 @@ body {
     background-color: #fff;
     z-index: 1;
 }
-#mast-head-container button:not(.searchButton){
+#mast-head-container button:not(.searchButton),
+#mast-head-container .rightIcon img{
     box-sizing: border-box;
     cursor: pointer;
     width: 40px;
@@ -91,7 +95,7 @@ body {
     color: #111;
     padding: 2px 6px;
     font-size: 14px;
-    font-weight: 100;
+    font-weight: 300;
     border: 1px solid #ccc;
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
