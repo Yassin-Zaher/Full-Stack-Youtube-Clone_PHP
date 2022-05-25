@@ -76,6 +76,8 @@ a{
 
 #main-content-container {
     padding: 10px 30px;
+    display: flex;
+    flex: 1;
 
 }
 
@@ -116,3 +118,13 @@ a{
     height: 20px;
     width: 20px;
 }
+
+/*  the main acontainer */
+.column{
+    flex: 1;
+    display: flex;
+    background-color: white;
+    min-height: 300px;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px;
+} 

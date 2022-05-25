@@ -1,5 +1,7 @@
+<?php include_once("includes/config.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
           <meta charset="UTF-8">
           <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,39 +15,40 @@
           <script src="./assets/js/commonActions.js"></script>
           <title>ME-TUBE</title>
 </head>
+
 <body>
           <div id="page-container">
                     <div id="mast-head-container">
 
-                      <button class="navShowHide">
-                              <img src="./assets/images/icons/menu.png">
-                     </button>
+                              <button class="navShowHide">
+                                        <img src="./assets/images/icons/menu.png">
+                              </button>
 
-                    <a href="index.php" class="logoContainer">
-                        <img src="./assets/images/youtube-logo.png" title="logo" alt="site-logo">
-                    </a>
-
-                    <div class="searchBarContainer">
-                              <form action="search.php" method="GET">
-                                    <input type="text" class="searchBar" name="term" placeholder="Search..."> 
-                                    <button class="searchButton">
-                                       <img src="./assets/images/icons/search.png">
-                                    </button>
-                              </form>
-                    </div>
-
-                    <div class="rightIcon">
-                              <a href="upload.php">
-                                 <img class="upload" src="./assets/images/icons/upload.png">  
+                              <a href="index.php" class="logoContainer">
+                                        <img src="./assets/images/youtube-logo.png" title="logo" alt="site-logo">
                               </a>
-                              <a href="#">
-                                 <img class="profile" src="./assets/images/profile.png">  
-                              </a>
-                    </div>
+
+                              <div class="searchBarContainer">
+                                        <form action="search.php" method="GET">
+                                                  <input type="text" class="searchBar" name="term" placeholder="Search...">
+                                                  <button class="searchButton">
+                                                            <img src="./assets/images/icons/search.png">
+                                                  </button>
+                                        </form>
+                              </div>
+
+                              <div class="rightIcon">
+                                        <a href="upload.php">
+                                                  <img class="upload" src="./assets/images/icons/upload.png">
+                                        </a>
+                                        <a href="#">
+                                                  <img class="profile" src="./assets/images/profile.png">
+                                        </a>
+                              </div>
 
                     </div>
                     <div id="side-nav-container" style="display:none">
-                         side nav container
+                              side nav container
                     </div>
                     <div id="main-section-container">
                               <div id="main-content-container">
