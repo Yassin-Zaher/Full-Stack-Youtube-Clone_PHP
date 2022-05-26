@@ -4,9 +4,10 @@ body {
     margin: 0;
 }
 
-a{
+a {
     text-decoration: none;
 }
+
 #page-container {
     width: 100%;
     height: 100%;
@@ -27,8 +28,9 @@ a{
     background-color: #fff;
     z-index: 1;
 }
+
 #mast-head-container button:not(.searchButton),
-#mast-head-container .rightIcon img{
+#mast-head-container .rightIcon img {
     box-sizing: border-box;
     cursor: pointer;
     width: 40px;
@@ -38,21 +40,22 @@ a{
     background-color: transparent;
 
 }
-#mast-head-container button img{
+
+#mast-head-container button img {
     width: 100%;
 }
 
-#mast-head-container .logoContainer{
+#mast-head-container .logoContainer {
     width: 150px;
 }
 
-#mast-head-container .logoContainer img{
+#mast-head-container .logoContainer img {
     height: 25px;
     margin-left: 8px;
-} 
+}
 
 
-#side-nav-container  {
+#side-nav-container {
     height: 100vh;
     width: 240px;
     background-color: #f5f5f5;
@@ -64,7 +67,8 @@ a{
     flex-direction: column;
 
 }
-#main-section-container.leftPadding{
+
+#main-section-container.leftPadding {
     padding-left: 240px;
 }
 
@@ -81,17 +85,19 @@ a{
 
 }
 
-#mast-head-container .searchBarContainer{
+#mast-head-container .searchBarContainer {
     margin: 0 40px;
     flex: 1;
     display: flex;
-    
+
 }
-#mast-head-container .searchBarContainer form{
+
+#mast-head-container .searchBarContainer form {
     display: flex;
     flex: 1;
 }
-#mast-head-container .searchBarContainer .searchBar{
+
+#mast-head-container .searchBarContainer .searchBar {
     flex: 1;
     max-width: 600px;
     color: #111;
@@ -105,7 +111,8 @@ a{
     height: 32px;
     box-shadow: #eee 0px 1px 2px 0px insert;
 }
-#mast-head-container .searchBarContainer .searchButton{
+
+#mast-head-container .searchBarContainer .searchButton {
     height: 32px;
     border: 1px solid #d3d3d3;
     background-color: #f8f8f8;
@@ -114,17 +121,17 @@ a{
     cursor: pointer;
     width: 65px;
 }
-#mast-head-container .searchBarContainer .searchButton img{
+
+#mast-head-container .searchBarContainer .searchButton img {
     height: 20px;
     width: 20px;
 }
 
 /*  the main acontainer */
-.column{
+.column {
     flex: 1;
-    display: flex;
     background-color: white;
     min-height: 300px;
     padding: 20px;
     box-shadow: rgba(0, 0, 0, 0.1) 1px 2px;
-} 
+}
