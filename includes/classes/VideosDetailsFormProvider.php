@@ -11,7 +11,7 @@ class VideoDetailsFormProvider {
                     $privacyInput = $this->createPrivacyInput();
                     $categoriesInput = $this->createCategoriesInput();
                     $submitButton = $this->createUploadButton();
-                    return "<form class='w-100' action='prossecing.php' method='POST'>
+                    return "<form class='w-100' action='proccessing.php' method='POST' enctype='multipart/form-data'>
                               $fileInput
                               $titleInput
                               $descriptionInput
@@ -25,7 +25,7 @@ class VideoDetailsFormProvider {
           private function createFileInput(){
           return "<div class='form-group'>
                     <label for='exampleFormControlFile1'>Your File </label> <br>
-                    <input type='file' class='form-control-file' id='exampleFormControlFile1' required>
+                    <input type='file' class='form-control-file' id='exampleFormControlFile1' name='fileInput' required>
           </div>";
           }
 
@@ -38,13 +38,13 @@ class VideoDetailsFormProvider {
           private function createDescriptionInput()
           {
                     return "<div class='form-group mt-2'>
-                               <textarea class='form-control' placeholder='Description' id='exampleFormControlTextarea1' rows='3'></textarea>
+                               <textarea class='form-control' name='descriptionInput' placeholder='Description' id='exampleFormControlTextarea1' rows='3'></textarea>
                             </div>";
           }
           private function createPrivacyInput()
           {
                     return "<div class='form-group mt-2'>
-                              <select class='form-select' aria-label='Default select example'>
+                              <select class='form-select' aria-label='Default select example' name='privacyInput'>
                                         <option value='0'>Private</option>
                                         <option value='1'>Public</option>
                               </select>'
@@ -58,7 +58,7 @@ class VideoDetailsFormProvider {
             $query->execute();
 
             $html = "<div class='form-group mt-2'>
-                              <select class='form-select' aria-label='Default select example'>";
+                              <select class='form-select' aria-label='Default select example' name='categoryInput'>";
             while($row = $query->fetch(PDO::FETCH_ASSOC)) {
                 $name = $row["name"];
                 $id = $row["id"];
@@ -72,7 +72,7 @@ class VideoDetailsFormProvider {
         }
 
           private function createUploadButton() {
-              return "<button type='submit' name='upload' class='btn btn-primary mt-2'>Upload</button>";
+              return "<button type='submit' name='uploadButton' class='btn btn-primary mt-2'>Upload</button>";
           }
 
 }
