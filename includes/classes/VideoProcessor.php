@@ -1,50 +1,65 @@
 <?php
-define ('SITE_ROOT', realpath(dirname(__FILE__)));
 class VideoProcessor {
-    private $connection;
-    private $maxFileSize = 50000000;
-    private $allowedTypes = array("3GPP", "mp4", "AVI", "FLV", "MOV", "MPEG4", "MPEGPS", "WebM" ,"WMV");
+
+    private $con;
+    private $sizeLimit = 500000000;
+    private $allowedTypes = array("mp4", "flv", "webm", "mkv", "vob", "ogv", "ogg", "avi", "wmv", "mov", "mpeg", "mpg");
+
+    // *** UNCOMMENT ONE OF THESE DEPENDING ON YOUR COMPUTER ***
+    //private $ffmpegPath = "ffmpeg/mac/regular-xampp/ffmpeg"; // *** MAC (USING REGULAR XAMPP) ***
+     private $ffmpegPath = "ffmpeg/linux/ffmpeg"; // *** LINUX ***
+    // private $ffmpegPath = "ffmpeg/windows/ffmpeg.exe"; //  *** WINDOWS ***
+
+    // *** ALSO UNCOMMENT ONE OF THESE DEPENDING ON YOUR COMPUTER ***
+    //private $ffprobePath = "ffmpeg/mac/regular-xampp/ffprobe"; // *** MAC (USING REGULAR XAMPP) ***
+    // private $ffprobePath = "ffmpeg/mac/xampp-VM/ffprobe"; // *** MAC (USING XAMPP VM) ***
+    // private $ffprobePath = "ffmpeg/linux/ffprobe"; // *** LINUX ***
+     private $ffprobePath = "ffmpeg/windows/ffprobe.exe"; //  *** WINDOWS ***
+
     public function __construct($con) {
-        $this->connection = $con;
+        $this->con = $con;
     }
 
-    public function upload($videoUploadData){
+    public function upload($videoUploadData) {
+
         $targetDir = "uploads/videos/";
         $videoData = $videoUploadData->videoDataArray;
+
         $tempFilePath = $targetDir . uniqid() . basename($videoData["name"]);
+        $tempFilePath = str_replace(" ", "_", $tempFilePath);
 
-        $tempFilePath.str_replace(" ", "_", $tempFilePath);
-        $isValidData = $this->processData($videoData,  SITE_ROOT.$tempFilePath);
+        $isValidData = $this->processData($videoData, $tempFilePath);
 
-        if(!$isValidData){
+        if(!$isValidData) {
             return false;
         }
 
-        if(move_uploaded_file($videoData["tmp_name"] , $tempFilePath)) {
-            $finalFilePath = $targetDir . uniqid() . "mp4";
+        if(move_uploaded_file($videoData["tmp_name"], $tempFilePath)) {
+            $finalFilePath = $targetDir . uniqid() . ".mp4";
 
-            //inset the video into the video table
-            if(!$this->insertVideoData($videoUploadData, $finalFilePath)){
-                echo "upload file failed :(";
+            if(!$this->insertVideoData($videoUploadData, $finalFilePath)) {
+                echo "Insert query failed\n";
                 return false;
             }
-        };
 
+            return true;
 
-
+        }
     }
-    private function processData($videoData, $tempFilePath) {
-        $videoType = pathinfo($tempFilePath, PATHINFO_EXTENSION);
-        if(!$this->isValidSize($videoData)){
-            echo "File too large Can't be more than ". $this->maxFileSize;
+
+    private function processData($videoData, $filePath) {
+        $videoType = pathInfo($filePath, PATHINFO_EXTENSION);
+
+        if(!$this->isValidSize($videoData)) {
+            echo "File too large. Can't be more than " . $this->sizeLimit . " bytes";
             return false;
         }
-        elseif (!$this->isValidType($videoType)) {
-            echo "This video format is not accepted :(";
+        else if(!$this->isValidType($videoType)) {
+            echo "Invalid file type";
             return false;
         }
-        elseif ($this->hasError($videoData)){
-            echo "Error Code" . $videoData["error"];
+        else if($this->hasError($videoData)) {
+            echo "Error code: " . $videoData["error"];
             return false;
         }
 
@@ -52,22 +67,22 @@ class VideoProcessor {
     }
 
     private function isValidSize($data) {
-        return $data["size"] <= $this->maxFileSize;
+        return $data["size"] <= $this->sizeLimit;
     }
 
     private function isValidType($type) {
-            $lowerCased = strtolower($type);
-            return in_array($lowerCased, $this->allowedTypes);
-
+        $lowercased = strtolower($type);
+        return in_array($lowercased, $this->allowedTypes);
     }
 
-    private function hasError($data){
+    private function hasError($data) {
         return $data["error"] != 0;
     }
 
     private function insertVideoData($uploadData, $filePath) {
-        $query = $this->connection->prepare("INSERT INTO videos(title, uploadedBy, description, privacy, category, filePath)
-                                          VALUES(:title, :uploadedBy, :description, :privacy, :category, :filePath)");
+        $query = $this->con->prepare("INSERT INTO videos(title, uploadedBy, description, privacy, category, filePath)
+                                        VALUES(:title, :uploadedBy, :description, :privacy, :category, :filePath)");
+
         $query->bindParam(":title", $uploadData->title);
         $query->bindParam(":uploadedBy", $uploadData->uploadedBy);
         $query->bindParam(":description", $uploadData->description);
@@ -78,6 +93,5 @@ class VideoProcessor {
         return $query->execute();
     }
 
-
-
 }
+?>
