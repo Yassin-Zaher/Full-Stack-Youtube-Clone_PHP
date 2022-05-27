@@ -24,7 +24,10 @@ class VideoProcessor {
             $finalFilePath = $targetDir . uniqid() . "mp4";
 
             //inset the video into the video table
-            if(!$this->insertVideoData($videoUploadData, $finalFilePath));
+            if(!$this->insertVideoData($videoUploadData, $finalFilePath)){
+                echo "upload file failed :(";
+                return false;
+            }
         };
 
 
@@ -61,6 +64,20 @@ class VideoProcessor {
     private function hasError($data){
         return $data["error"] != 0;
     }
+
+    private function insertVideoData($uploadData, $filePath) {
+        $query = $this->connection->prepare("INSERT INTO videos(title, uploadedBy, description, privacy, category, filePath)
+                                          VALUES(:title, :uploadedBy, :description, :privacy, :category, :filePath)");
+        $query->bindParam(":title", $uploadData->title);
+        $query->bindParam(":uploadedBy", $uploadData->uploadedBy);
+        $query->bindParam(":description", $uploadData->description);
+        $query->bindParam(":privacy", $uploadData->privacy);
+        $query->bindParam(":category", $uploadData->category);
+        $query->bindParam(":filePath", $filePath);
+
+        return $query->execute();
+    }
+
 
 
 }
