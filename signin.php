@@ -28,7 +28,7 @@
         </div>
 
     </div>
-    <button type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+    <a href="index.php" type="submit"  class="btn btn-primary btn-block mb-4">Sign in</a>
         <div>
             <span>Don't Have an account ? </span> <a href="signup.php" class="link-primary">Sign Up</a>
         </div>
