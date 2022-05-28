@@ -15,7 +15,15 @@ if(isset($_POST["signupButton"])){
     $password = FormCleaner::cleanPassword($_POST["password"]);
     $password2 = FormCleaner::cleanPassword($_POST["password"]);
     $userName = FormCleaner::cleanUserName($_POST["userName"]);
-    $account->register($firstName, $lastName, $userName, $email, $email2, $password, $password2);
+
+    $wasSuccessful = $account->register($firstName, $lastName, $userName, $email, $email2, $password, $password2);
+
+    if($wasSuccessful) {
+        // SECCUSS
+        // redirect user vers the main page
+
+    }
+
 }
 ?>
 
