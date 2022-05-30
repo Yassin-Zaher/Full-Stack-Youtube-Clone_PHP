@@ -16,14 +16,24 @@ class Account {
            $this->validatePassword($pw, $pw2);
 
            if(empty($this->errorArray)) {
-               insertUserDetails($fn, $ln, $un, $em, $pw );
+               $this->insertUserDetails($fn, $ln, $un, $em, $pw );
+               return true;
            } else{
                return false;
            }
      }
 
-     public function insertUserDetails($fn, $ln, $un, $em, $pw ){
-         return true;
+     public function insertUserDetails($fn, $ln, $un, $em, $pw){
+         $imgUrl = "TODO: Image Url";
+         $query = $this->con->prepare("INSERT INTO user(firstName, lastName, email, password, userName, profilePicture)
+                                        VALUES(:firstName, :lastName, :email, :password, :userName, :profilePicture)");
+         $query->bindParam(":firstName", $fn);
+         $query->bindParam(":lastName", $ln);
+         $query->bindParam(":email", $em);
+         $query->bindParam(":password", $pw);
+         $query->bindParam(":userName", $un);
+         $query->bindParam(":profilePicture", $imgUrl);
+         return $query->execute();
      }
 
      public function validateFirstName($fn){
@@ -61,13 +71,13 @@ class Account {
         $query->bindParam(":em", $em);
         $query->execute();
 
-        if($query->rowCount != 0){
+        if($query->rowCount() != 0){
             array_push($this->errorArray, Constants::$emailTaken);
         }
     }
 
     public function validatePassword($pw, $pw2) {
-        if($pw != pw2) {
+        if($pw != $pw2) {
             array_push($this->errorArray, Constants::$passwordNotMatch);
             return;
         }
@@ -93,7 +103,7 @@ class Account {
         $query->bindParam(":un", $un);
         $query->execute();
 
-        if($query->rowCount != 0){
+        if($query->rowCount() != 0){
             array_push($this->errorArray, Constants::$userNameTaken);
         }
 

@@ -11,17 +11,23 @@ if(isset($_POST["signupButton"])){
     $firstName = FormCleaner::cleanFormString($_POST["firstName"]);
     $lastName = FormCleaner::cleanFormString($_POST["lastName"]);
     $email = FormCleaner::cleanEmail($_POST["email"]);
-    $email2= FormCleaner::cleanEmail($_POST["email"]);
+    $email2= FormCleaner::cleanEmail($_POST["email2"]);
     $password = FormCleaner::cleanPassword($_POST["password"]);
-    $password2 = FormCleaner::cleanPassword($_POST["password"]);
+    $password2 = FormCleaner::cleanPassword($_POST["password2"]);
     $userName = FormCleaner::cleanUserName($_POST["userName"]);
 
     $wasSuccessful = $account->register($firstName, $lastName, $userName, $email, $email2, $password, $password2);
 
     if($wasSuccessful) {
-        // SECCUSS
-        // redirect user vers the main page
 
+    }
+
+}
+
+//remember the data function
+function keepData($input){
+    if(isset($_POST[$input])){
+        echo $_POST[$input];
     }
 
 }
@@ -41,28 +47,28 @@ if(isset($_POST["signupButton"])){
 
         <?php echo $account->displayError(Constants::$firstNameChars)?>
         <div class="form-outline mb-4 mt-3">
-            <input type="text" name="firstName" id="email" class="form-control" placeholder="First name" />
+            <input type="text" name="firstName" id="email" value="<?php keepData('firstName');?>" class="form-control" placeholder="First name" />
         </div>
 
         <?php echo $account->displayError(Constants::$lastNameChars)?>
         <div class="form-outline mb-4">
-            <input  type="text" name="lastName" id="form2Example2" class="form-control" placeholder="Last name"/>
+            <input  type="text" name="lastName" id="form2Example2" value="<?php keepData('lastName');?>" class="form-control" placeholder="Last name"/>
         </div>
         <?php echo $account->displayError(Constants::$userNameChars)?>
         <?php echo $account->displayError(Constants::$userNameTaken)?>
         <div class="form-outline mb-4 mt-3">
-            <input  type="text" id="email" name="userName" class="form-control" placeholder="username" />
+            <input  type="text"  name="userName" value="<?php keepData('userName');?>" class="form-control" placeholder="username" />
         </div>
 
         <?php echo $account->displayError(Constants::$emailNotMatch)?>
         <?php echo $account->displayError(Constants::$emailInvalid)?>
         <?php echo $account->displayError(Constants::$emailTaken)?>
         <div class="form-outline mb-4">
-            <input  type="email" id="form2Example2" name="email" class="form-control" placeholder="email"/>
+            <input  type="email" name="email"  value="<?php keepData('email');?>"  class="form-control" placeholder="email"/>
         </div>
 
         <div class="form-outline mb-4 mt-3">
-            <input type="email" id="email" class="form-control" placeholder="Confirm email" />
+            <input type="email" name="email2" value="<?php keepData('email2');?>" class="form-control" placeholder="Confirm email" />
         </div>
 
 
@@ -72,11 +78,11 @@ if(isset($_POST["signupButton"])){
         <?php echo $account->displayError(Constants::$passwordNotAlphaNumeric)?>
         <?php echo $account->displayError(Constants::$passwordLength)?>
         <div class="form-outline mb-4">
-            <input  type="password" id="form2Example2" name="password" class="form-control" placeholder="password"/>
+            <input  type="password" value="<?php keepData('password');?>" name="password" class="form-control" placeholder="password"/>
         </div>
 
         <div class="form-outline mb-4">
-            <input type="password" id="form2Example2" class="form-control" placeholder="Confirm password"/>
+            <input type="password" value="<?php keepData('password2');?>" name="password2" class="form-control" placeholder="Confirm password"/>
         </div>
 
 
@@ -84,7 +90,7 @@ if(isset($_POST["signupButton"])){
         <div class="row mb-4">
             <div class="col d-flex justify-content-center">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
+                    <input class="form-check-input" type="checkbox" checked />
                     <label class="form-check-label" for="form2Example31"> Remember me </label>
                 </div>
             </div>
