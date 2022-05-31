@@ -19,7 +19,8 @@ if(isset($_POST["signupButton"])){
     $wasSuccessful = $account->register($firstName, $lastName, $userName, $email, $email2, $password, $password2);
 
     if($wasSuccessful) {
-
+        $_SESSION["userLoggedIn"] = $userName;
+        header("Location: index.php");
     }
 
 }
@@ -40,7 +41,7 @@ function keepData($input){
 <div class="mt-5 shadow-lg p-3 mb-5 bg-white rounded overflow-auto" style="width: 30rem;" >
     <form method="POST">
         <div class="text-center mb-5" >
-            <img style="width: 20rem;" src="assets/images/youtube-logo.png" alt="youtube-logo" class="img-thumbnail h-2 mb-2">
+            <img style="width: 80px; height: 40px" src="assets/images/youtube-logo.png" alt="youtube-logo" class="img-thumbnail h-2 mb-2">
             <h3>Sign Up</h3>
             <p>to continue in to youtube</p>
         </div>

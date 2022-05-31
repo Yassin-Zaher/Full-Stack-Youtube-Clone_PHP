@@ -2,6 +2,7 @@
 require_once("includes/header.php");
 require_once("includes/classes/VideoUploadData.php");
 include_once("includes/classes/VideoProcessor.php");
+require_once("includes/classes/UserInfo.php");
 
 if(!isset($_POST["uploadButton"])){
     echo "nothing send to this page";
@@ -15,7 +16,8 @@ $videoUploadData = new VideoUploadData(
                                 $_POST["descriptionInput"],
                                 $_POST["privacyInput"],
                                 $_POST["categoryInput"],
-                                "REPLACE THIS BY UPLOADED BY"
+                                $user->getFullName()
+
 );
 
 

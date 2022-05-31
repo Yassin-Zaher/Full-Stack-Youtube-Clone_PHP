@@ -1,26 +1,41 @@
 <?php
 
-class UserInfo
-{
-        private $fname, $lname, $email, $pass, $username;
-        public function __construct($fname, $lname, $email, $pass, $username){
-            $this->fname = $fname;
-            $this->fname = $lname;
-            $this->email = $email;
-            $this->pass = $pass;
-            $this->username = $username;
+class UserInfo{
+
+    public $con, $sqlData;
+    public function __construct($con, $userName) {
+            $this->con = $con;
+
+            $query = $this->con->prepare("SELECT * FROM user WHERE userName=:un");
+            $query->bindParam(":un", $userName);
+            $query->execute();
+
+            $this->sqlData = $query->fetch(PDO::FETCH_ASSOC);
         }
 
-        public function insertUser($con){
-            $query = $con->prepare("INSERT INTO videos(firstName, lastName, email, password, userName)
-                                        VALUES(:firstName, :lastName, :email, :password, :userName)");
-            $query->bindParam(":firstName", $this->fname);
-            $query->bindParam(":lastName", $this->lname);
-            $query->bindParam(":email", $this->email);
-            $query->bindParam(":password", $this->pass);
-            $query->bindParam(":userName", $this->username);
-            return $query->execute();
+    public function getUserName(){
+          return $this->sqlData["userName"];
+     }
 
-        }
+    public function getFullName(){
+        return $this->sqlData["firstName"] . " " . $this->sqlData["lastName"];
+    }
+
+    public function getFirstName(){
+        return $this->sqlData["firstName"];
+    }
+
+    public function getLastName(){
+        return $this->sqlData["lastName"];
+    }
+
+    public function getEmail(){
+        return $this->sqlData["email"];
+    }
+
+    public function profilePic(){
+        return $this->sqlData["profilePicture"];
+    }
+
 
 }

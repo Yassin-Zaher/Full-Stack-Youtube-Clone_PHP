@@ -23,8 +23,26 @@ class Account {
            }
      }
 
+     public function login($un, $pw){
+         //$pw = hash("sha512", $pw);
+         $query = $this->con->prepare("SELECT *  FROM user WHERE userName=:un AND password=:pw");
+         $query->bindParam(":un", $un);
+         $query->bindParam(":pw", $pw);
+         $query->execute();
+
+         echo $query->rowCount();
+         if($query->rowCount() == 1){
+              return true;
+         }else {
+            array_push($this->errorArray, Constants::$loginFailed);
+            return false;
+         }
+
+     }
+
      public function insertUserDetails($fn, $ln, $un, $em, $pw){
-         $imgUrl = "TODO: Image Url";
+         //$pw = hash("sha512", $pw);
+         $imgUrl = "assets/images/profile.png";
          $query = $this->con->prepare("INSERT INTO user(firstName, lastName, email, password, userName, profilePicture)
                                         VALUES(:firstName, :lastName, :email, :password, :userName, :profilePicture)");
          $query->bindParam(":firstName", $fn);
@@ -42,12 +60,6 @@ class Account {
          }
      }
 
-     public function displayError($error) {
-         if(in_array($error, $this->errorArray)){
-             return "<span class='text-danger'>$error</span>";
-         }
-
-     }
 
     public function validateLastName($ln) {
         if(strlen($ln) > 25 || strlen($ln) < 2) {
@@ -105,6 +117,13 @@ class Account {
 
         if($query->rowCount() != 0){
             array_push($this->errorArray, Constants::$userNameTaken);
+        }
+
+    }
+
+    public function displayError($error) {
+        if(in_array($error, $this->errorArray)){
+            return "<span class='text-danger'>$error</span>";
         }
 
     }

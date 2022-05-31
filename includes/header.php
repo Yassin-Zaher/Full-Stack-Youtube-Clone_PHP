@@ -1,6 +1,13 @@
 <?php
 include_once("includes/config.php");
-include_once ("head.php"); ?>
+include_once ("head.php");
+include_once("classes/UserInfo.php");
+
+$userLoggedIn = isset($_SESSION["userLoggedIn"]) ? $_SESSION["userLoggedIn"] : "";
+
+$user = new UserInfo($con, $userLoggedIn);
+
+?>
 
 <body>
           <div id="page-container">
