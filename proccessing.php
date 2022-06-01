@@ -2,7 +2,6 @@
 require_once("includes/header.php");
 require_once("includes/classes/VideoUploadData.php");
 include_once("includes/classes/VideoProcessor.php");
-require_once("includes/classes/UserInfo.php");
 
 if(!isset($_POST["uploadButton"])){
     echo "nothing send to this page";

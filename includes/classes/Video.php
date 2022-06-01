@@ -2,11 +2,11 @@
 
 class Video{
 
-    public $con, $sqlData;
+    public $con, $sqlData, $userLoggedInObj;
     public function __construct($con, $input, $userLoggedInObj) {
         $this->con = $con;
 
-       $this->$userLoggedInObj = $userLoggedInObj;
+       $this->userLoggedInObj = $userLoggedInObj;
 
        // check if the input is sql data or an id // TODO
        if(is_array($input)){
@@ -62,6 +62,16 @@ class Video{
 
     public function getVideoDescription(){
         return $this->sqlData["description"];
+    }
+
+    public function IncrementView() {
+
+        $query = $this->con->prepare("UPDATE videos SET views=views+1 WHERE id=:id");
+        $query->bindParam("id", $videoId);
+        $videoId = $this->getVideoId();
+        $query->execute();
+
+        $this->sqlData["views"] = $this->sqlData["views"] + 1;
     }
 
 

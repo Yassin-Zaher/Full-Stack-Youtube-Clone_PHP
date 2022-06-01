@@ -2,6 +2,8 @@
 include_once("includes/config.php");
 include_once ("head.php");
 include_once("classes/UserInfo.php");
+require_once("includes/classes/Video.php");
+
 
 $userLoggedIn = isset($_SESSION["userLoggedIn"]) ? $_SESSION["userLoggedIn"] : "";
 

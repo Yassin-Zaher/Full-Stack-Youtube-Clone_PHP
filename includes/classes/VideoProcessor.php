@@ -5,27 +5,16 @@ class VideoProcessor {
     private $sizeLimit = 500000000;
     private $allowedTypes = array("mp4", "flv", "webm", "mkv", "vob", "ogv", "ogg", "avi", "wmv", "mov", "mpeg", "mpg");
 
-    // *** UNCOMMENT ONE OF THESE DEPENDING ON YOUR COMPUTER ***
-    //private $ffmpegPath = "ffmpeg/mac/regular-xampp/ffmpeg"; // *** MAC (USING REGULAR XAMPP) ***
-     private $ffmpegPath = "ffmpeg/linux/ffmpeg"; // *** LINUX ***
-    // private $ffmpegPath = "ffmpeg/windows/ffmpeg.exe"; //  *** WINDOWS ***
-
-    // *** ALSO UNCOMMENT ONE OF THESE DEPENDING ON YOUR COMPUTER ***
-    //private $ffprobePath = "ffmpeg/mac/regular-xampp/ffprobe"; // *** MAC (USING REGULAR XAMPP) ***
-    // private $ffprobePath = "ffmpeg/mac/xampp-VM/ffprobe"; // *** MAC (USING XAMPP VM) ***
-    // private $ffprobePath = "ffmpeg/linux/ffprobe"; // *** LINUX ***
-     private $ffprobePath = "ffmpeg/windows/ffprobe.exe"; //  *** WINDOWS ***
-
     public function __construct($con) {
         $this->con = $con;
     }
 
     public function upload($videoUploadData) {
 
-        $targetDir = "uploads/videos/";
+        $targetDir = 'C:\xampp\htdocs\video-tube\uploads\videos\ ';
         $videoData = $videoUploadData->videoDataArray;
 
-        $tempFilePath = $targetDir . uniqid() . basename($videoData["name"]);
+        $tempFilePath = $targetDir . basename($videoData["name"]);
         $tempFilePath = str_replace(" ", "_", $tempFilePath);
 
         $isValidData = $this->processData($videoData, $tempFilePath);
@@ -35,7 +24,7 @@ class VideoProcessor {
         }
 
         if(move_uploaded_file($videoData["tmp_name"], $tempFilePath)) {
-            $finalFilePath = $targetDir . uniqid() . ".mp4";
+            $finalFilePath = $tempFilePath;
 
             if(!$this->insertVideoData($videoUploadData, $finalFilePath)) {
                 echo "Insert query failed\n";
