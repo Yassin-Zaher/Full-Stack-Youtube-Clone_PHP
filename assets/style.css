@@ -166,6 +166,7 @@ a {
 
 .videoInfo .bottomSection{
     display: flex;
+    justify-content: space-between;
 }
 
 

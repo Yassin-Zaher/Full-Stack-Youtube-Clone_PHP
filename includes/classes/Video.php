@@ -32,6 +32,10 @@ class Video{
         return $this->sqlData["id"];
     }
 
+    public function getVideoLikes(){
+        return $this->sqlData["id"];
+    }
+
     public function getVideoTitle(){
         return $this->sqlData["title"];
     }

@@ -1,4 +1,5 @@
 <?php
+require_once("VideoInfoControls.php");
 
 class VideoInfo{
 
@@ -18,12 +19,16 @@ class VideoInfo{
          $title =$this->video->getVideoTitle();
          $views = $this->video->getVideoViews();
 
+         $videoControls = new VideoInfoControls($this->video, $this->userLoggedInObj);
+         $controls = $videoControls->create();
+
          return "<div class='videoInfo'>
                     <h1>$title</h1>
                     <div class='bottomSection'>
                         <span>$views</span>
+                        $controls
                     </div>
-                </div>>";
+                </div>";
     }
 
     private function createSecondaryInfo(){
