@@ -14,6 +14,7 @@ $video = new Video($con, $_GET["id"], $user);
 $video->IncrementView();
 ?>
 
+<script src="assets/js/videoPlayerAction.js"></script>
 
 <div class="watchLeftColumn">
     <?php $videoPlayer = new VideoPlayer($video);

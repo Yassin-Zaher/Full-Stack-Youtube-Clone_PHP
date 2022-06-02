@@ -18,17 +18,18 @@ class VideoInfoControls{
     }
 
     private function createLikeButton() {
-        //$text = $this->getVideoLikes();
+        $text = $this->video->getVideoLikes();
         $videoId = $this->video->getVideoId();
         $class = "likeButton";
+        $action = "likeVideo(this, $videoId)";
         $imageSrc = "assets/images/icons/thumb-up.png";
 
-        $button = ButtonProvider::createButton("5", $imageSrc, "", $class);
+        $button = ButtonProvider::createButton($text, $imageSrc, $action, $class);
         return $button;
     }
 
     private function createDisLikeButton() {
-        $button = ButtonProvider::createButton("DesLikess", "", "", "");
+        $button = ButtonProvider::createButton("DesLikes", "", "", "");
         return $button;
     }
 
