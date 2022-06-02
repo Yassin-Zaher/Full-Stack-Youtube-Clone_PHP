@@ -86,5 +86,26 @@ class Video{
         return $data["count"];
     }
 
+    public function like(){
+        $id = $this->getVideoId();
+        $username = $this->userLoggedInObj->getUserName();
+        $query = $this->con->prepare("SELECT * FROM likes WHERE username=:username AND id=:id");
+        $query->bindParam("username", $username);
+        $query->bindParam("id", $id);
+        $query->execute();
+
+        if($query->rowCount() > 0){
+            // already like the video
+            echo "liked";
+        }else {
+            $query = $this->con->prepare("INSERT INTO likes(username, videoId) VALUES (:username, :videoId)");
+            $query->bindParam("username", $username);
+            $query->bindParam("id", $id);
+            $query->execute();
+        }
+
+
+    }
+
 
 }
