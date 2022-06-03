@@ -105,7 +105,7 @@ class Video{
         $query->bindParam("videoId", $id);
         $query->execute();
 
-        if($query->rowCount() > 0){
+        if($this->wasLikedBy()){
             //DELETE FROM `likes` WHERE `likes`.`id` = 4
             $query = $this->con->prepare("DELETE FROM likes WHERE username=:username AND videoId=:videoId");
             $query->bindParam("username", $username);
@@ -138,6 +138,17 @@ class Video{
         }
 
 
+    }
+
+    public function wasLikedBy(){
+        $id = $this->getVideoId();
+        $username = $this->userLoggedInObj->getUserName();
+        $query = $this->con->prepare("SELECT * FROM likes WHERE username=:username AND videoId=:videoId");
+        $query->bindParam("username", $username);
+        $query->bindParam("videoId", $id);
+        $query->execute();
+
+        return $query->rowCount() > 0;
     }
 
 

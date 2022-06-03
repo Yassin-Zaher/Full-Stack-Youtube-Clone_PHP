@@ -5,9 +5,19 @@ function likeVideo(button, videoId) {
             var likeButton = $(button);
             var disLikeButton = $(button).siblings(".disLikeButton");
 
+            likeButton.addClass("active");
+            disLikeButton.removeClass("active");
+
             var result = JSON.parse(data);
             updateLikesValue(likeButton.find(".text"), result.likes);
             updateLikesValue(disLikeButton.find(".text"), result.dislikes);
+
+            if(result.likes < 0){
+                likeButton.removeClass("active");
+                likeButton.find("img:first").attr("src", "assets/images/icons/thumb-up.png");
+            }else{
+                likeButton.find("img:first").attr("src", "assets/images/icons/thumb-up-active.png");
+            }
 
         })
 }
