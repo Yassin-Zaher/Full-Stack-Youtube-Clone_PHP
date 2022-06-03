@@ -76,11 +76,22 @@ class Video{
     }
 
     public function getVideoLikes(){
-        $query = $this->con->prepare("SELECT count(*) as 'count' FROM likes WHERE videoId= :videoId");
-        $query->bindParam("videoId", $videoId);
         $videoId = $this->getVideoId();
+        $query = $this->con->prepare("SELECT count(*) as 'count' FROM likes WHERE videoId= :videoId");
+
+        $query->bindParam("videoId", $videoId);
         $query->execute();
 
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+
+        return $data["count"];
+    }
+
+    public function getVideodDisLikes(){
+        $videoId = $this->getVideoId();
+        $query = $this->con->prepare("SELECT count(*) as 'count' FROM dislikes WHERE videoId= :videoId");
+        $query->bindParam("videoId", $videoId);
+        $query->execute();
         $data = $query->fetch(PDO::FETCH_ASSOC);
 
         return $data["count"];
@@ -89,19 +100,41 @@ class Video{
     public function like(){
         $id = $this->getVideoId();
         $username = $this->userLoggedInObj->getUserName();
-        $query = $this->con->prepare("SELECT * FROM likes WHERE username=:username AND id=:id");
+        $query = $this->con->prepare("SELECT * FROM likes WHERE username=:username AND videoId=:videoId");
         $query->bindParam("username", $username);
-        $query->bindParam("id", $id);
+        $query->bindParam("videoId", $id);
         $query->execute();
 
         if($query->rowCount() > 0){
-            // already like the video
-            echo "liked";
+            //DELETE FROM `likes` WHERE `likes`.`id` = 4
+            $query = $this->con->prepare("DELETE FROM likes WHERE username=:username AND videoId=:videoId");
+            $query->bindParam("username", $username);
+            $query->bindParam("videoId", $id);
+            $query->execute();
+
+            $result = array(
+                "likes" => -1,
+                "dislikes" => 0
+            );
+            return json_encode($result);
         }else {
             $query = $this->con->prepare("INSERT INTO likes(username, videoId) VALUES (:username, :videoId)");
             $query->bindParam("username", $username);
-            $query->bindParam("id", $id);
+            $query->bindParam("videoId", $id);
             $query->execute();
+
+            $query = $this->con->prepare("DELETE FROM dislikes WHERE username=:username AND videoId=:videoId");
+            $query->bindParam("username", $username);
+            $query->bindParam("videoId", $id);
+            $query->execute();
+
+
+            $count = $query->rowCount();
+            $result = array(
+                "likes" => 1,
+                "dislikes" => $count
+            );
+            return json_encode($result);
         }
 
 

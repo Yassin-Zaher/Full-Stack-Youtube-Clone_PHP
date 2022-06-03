@@ -7,7 +7,7 @@ class ButtonProvider{
         //TODO: Handle the Action For Our button
         return "<button class='$class' onclick='$action'>
                     $image
-                  <span>$text</span>
+                  <span class='text'>$text</span>
                </button>";
     }
 
