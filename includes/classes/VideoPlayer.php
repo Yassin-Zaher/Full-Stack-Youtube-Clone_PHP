@@ -15,6 +15,8 @@ class VideoPlayer {
 
         $filePath = $this->video->getVideoPath();
 
+
+        //<img src="{{ asset('uploads/joew.png') }}" />
         return "<video class='videoPlayer' controls>
                     <source src='$filePath' type='video/mp4'>
                 </video>";

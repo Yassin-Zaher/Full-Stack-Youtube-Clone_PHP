@@ -20,7 +20,7 @@ $user = new UserInfo($con, $userLoggedIn);
                               </button>
 
                               <a href="index.php" class="logoContainer">
-                                        <img src="./assets/images/youtube-logo.png" title="logo" alt="site-logo">
+                                        <img src="assets\images\icons\VideoTubeLogo.png" title="logo" alt="site-logo">
                               </a>
 
                               <div class="searchBarContainer">
@@ -34,10 +34,10 @@ $user = new UserInfo($con, $userLoggedIn);
 
                               <div class="rightIcon">
                                         <a href="upload.php">
-                                                  <img class="upload" src="./assets/images/icons/upload.png">
+                                                  <img class="upload" src="assets/images/icons/upload.png">
                                         </a>
                                         <a href="#">
-                                                  <img class="profile" src="./assets/images/profile.png">
+                                                  <img class="profile" src="assets/images/profilePictures/default.png">
                                         </a>
                               </div>
 
