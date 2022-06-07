@@ -175,12 +175,12 @@ a {
     font-size: 16px;
     flex: 1;
 }
-.videoInfo .bottomSection  .controls{
+.videoInfo .bottomSection .controls {
     flex: 1;
-    display: flex;
-    justify-content: flex-end;
     color: rgba(17, 17, 17, 0.6);
     font-size: 16px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .videoInfo .bottomSection .controls button {

@@ -38,7 +38,6 @@ class VideoInfo{
 
        $profileButton = ButtonProvider::createUserProfileButton($this->con, $uploadedBy);
 
-
         return "<div class='secondaryInfo'>
                     <div class='topRow'>
                        $profileButton

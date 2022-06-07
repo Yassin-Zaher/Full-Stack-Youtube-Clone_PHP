@@ -3,21 +3,21 @@
 class Video{
 
     public $con, $sqlData, $userLoggedInObj;
-    public function __construct($con, $input, $userLoggedInObj) {
+    public function __construct($con, $videoId, $userLoggedInObj) {
         $this->con = $con;
 
        $this->userLoggedInObj = $userLoggedInObj;
 
        // check if the input is sql data or an id // TODO
-       if(is_array($input)){
+       if(is_array($videoId)){
            //means that the input that got passed to video constructor
            //is sql data we should keep it
-           $this->sqlData = $input;
+           $this->sqlData = $videoId;
        } else {
            // it means that we received an id, and we should
            // get the data from the database
            $query = $this->con->prepare("SELECT * FROM videos WHERE id=:id");
-           $query->bindParam(":id", $input);
+           $query->bindParam(":id", $videoId);
            $query->execute();
 
 
@@ -42,6 +42,7 @@ class Video{
     }
 
     public function getVideoUploadedBy(){
+
         return $this->sqlData["uploadedBy"];
     }
 
@@ -70,10 +71,10 @@ class Video{
     }
 
     public function IncrementView() {
+        $videoId = $this->getVideoId();
 
         $query = $this->con->prepare("UPDATE videos SET views=views+1 WHERE id=:id");
         $query->bindParam("id", $videoId);
-        $videoId = $this->getVideoId();
         $query->execute();
 
         $this->sqlData["views"] = $this->sqlData["views"] + 1;

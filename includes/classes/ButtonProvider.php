@@ -14,10 +14,9 @@ class ButtonProvider{
     public static function createUserProfileButton($con, $username){
         $userObj = new UserInfo($con, $username);
         $profilePic = $userObj->profilePic();
-
         $link = "profile.php?username=$username";
-        return "<a href=$link>
-                  <img src='$profilePic' alt='profile picture' class='profilePicture'>
+        return "<a href='$link'>
+                  <img src='$profilePic' alt='profile-pic' class='profilePicture'>
                </a>";
     }
 }

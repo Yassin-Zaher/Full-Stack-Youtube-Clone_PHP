@@ -8,14 +8,14 @@ if(!isset($_POST["uploadButton"])){
     exit();
 }
 
-// 1) idk for now
+
 $videoUploadData = new VideoUploadData(
                                 $_FILES["fileInput"],
                                 $_POST["titleInput"],
                                 $_POST["descriptionInput"],
                                 $_POST["privacyInput"],
                                 $_POST["categoryInput"],
-                                $user->getFullName()
+                                $user->getUserName()
 
 );
 

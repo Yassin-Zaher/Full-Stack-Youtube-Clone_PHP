@@ -28,9 +28,9 @@ class Account {
          $query = $this->con->prepare("SELECT *  FROM user WHERE userName=:un AND password=:pw");
          $query->bindParam(":un", $un);
          $query->bindParam(":pw", $pw);
+
          $query->execute();
 
-         echo $query->rowCount();
          if($query->rowCount() == 1){
               return true;
          }else {
