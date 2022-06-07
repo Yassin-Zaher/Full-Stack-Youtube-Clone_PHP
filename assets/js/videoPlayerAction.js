@@ -34,6 +34,8 @@ function disLikeVideo(button, videoId) {
             dislikeButton.addClass("active");
             likeButton.removeClass("active");
 
+            console.log(data)
+
 
             let result = JSON.parse(data);
 

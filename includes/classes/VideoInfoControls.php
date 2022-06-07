@@ -11,7 +11,7 @@ class VideoInfoControls{
         $likeButton = $this->createLikeButton();
         $dislikeButton = $this->createDisLikeButton();
 
-        return "<div> 
+        return "<div class='controls'> 
                    $likeButton
                    $dislikeButton
                 </div>";

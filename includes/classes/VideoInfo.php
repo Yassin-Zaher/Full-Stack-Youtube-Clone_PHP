@@ -25,13 +25,25 @@ class VideoInfo{
          return "<div class='videoInfo'>
                     <h1>$title</h1>
                     <div class='bottomSection'>
-                        <span>$views</span>
+                        <span class='viewCount'>$views views</span>
                         $controls
                     </div>
                 </div>";
     }
 
     private function createSecondaryInfo(){
+       $description = $this->video->getVideoDescription();
+       $uploadedBy = $this->video->getVideoUploadedBy();
+       $uploadDate = $this->video->getVideoUploadDate();
+
+       $profileButton = ButtonProvider::createUserProfileButton($this->con, $uploadedBy);
+
+
+        return "<div class='secondaryInfo'>
+                    <div class='topRow'>
+                       $profileButton
+                    </div>
+                </div>";
 
     }
 

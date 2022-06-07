@@ -14,15 +14,15 @@ class Video{
            //is sql data we should keep it
            $this->sqlData = $input;
        } else {
-           // it means that we recived an id and we should
-           // get the data from the data base
+           // it means that we received an id, and we should
+           // get the data from the database
            $query = $this->con->prepare("SELECT * FROM videos WHERE id=:id");
            $query->bindParam(":id", $input);
            $query->execute();
 
 
            //converting the returned values from the databse
-           // into an object
+           // into an object key => value
            $this->sqlData = $query->fetch(PDO::FETCH_ASSOC);
        }
 
@@ -43,6 +43,10 @@ class Video{
 
     public function getVideoUploadedBy(){
         return $this->sqlData["uploadedBy"];
+    }
+
+    public function getVideoUploadDate(){
+        return $this->sqlData["uploadDate"];
     }
 
     public function getVideoPrivacy(){
@@ -79,7 +83,7 @@ class Video{
         $videoId = $this->getVideoId();
         $query = $this->con->prepare("SELECT count(*) as 'count' FROM likes WHERE videoId= :videoId");
 
-        $query->bindParam("videoId", $videoId);
+            $query->bindParam("videoId", $videoId);
         $query->execute();
 
         $data = $query->fetch(PDO::FETCH_ASSOC);
@@ -137,7 +141,6 @@ class Video{
             return json_encode($result);
         }
 
-
     }
 
     public function wasLikedBy(){
@@ -194,7 +197,7 @@ class Video{
 
 
     }
-    // to check is the user has disd=liked the video ?
+    // to check is the user has disliked the video ?
     public function wasDisLikedBy(){
 
         $id = $this->getVideoId();
