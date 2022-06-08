@@ -61,14 +61,7 @@ class UserInfo{
 
     }
 
-    public function subscribe($userTo){
-       //check is the user is already subscribed :)
-        if($this->isSubscribedTo($userTo)){
-            //TODO : REMOVE THE SUBSCRIBE
-        }else{
-            //TODO : ADD AS NEW SUBSCRIBER
-        }
-    }
+
 
 
 }
