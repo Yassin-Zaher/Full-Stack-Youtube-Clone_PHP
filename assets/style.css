@@ -229,4 +229,58 @@ a {
     font-weight: 400;
 }
 
+.secondaryInfo .topRow .uploadInfo .owner a{
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+}
+
+.descriptionContainer {
+    margin-left: 64px;
+    max-width: 615px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+
+}
+
+.secondaryInfo {
+    border-bottom: 1px solid #dedede;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+
+}
+
+.secondaryInfo .topRow .button {
+    padding: 6px 15px;
+    cursor: pointer;
+    font-weight: 500;
+    border-radius: 2px;
+    font-size: 14px;
+    border: none;
+}
+
+.secondaryInfo .topRow .subscribeButtonContainer
+.secondaryInfo .topRow .editVideoButtonContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.subscribeButtonContainer .subscribe {
+    background-color: red;
+    color: #ffffff;
+}
+
+.subscribeButtonContainer .unsubscribe {
+    background-color: #eeeeee;
+    color: rgba(17, 17, 17, 0.6);
+}
+.editVideoButtonContainer .edit{
+    background-color: #2692e6;
+    color: #fff;
+}
+
+
 

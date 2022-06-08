@@ -35,7 +35,7 @@ class ButtonProvider{
     public static function createEditVideoButton($videoId){
         $href = "editVideo.php?videoId=$videoId";
 
-        $button = ButtonProvider::createHyperButton("EDIT VIDEO", null, $href, "edit button");
+        $button = ButtonProvider::createHyperButton("EDIT VIDEO", null, $href, "button edit");
         return "<div class='editVideoButtonContainer'>
                     $button
                 </div>";

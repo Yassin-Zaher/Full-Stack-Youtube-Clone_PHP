@@ -212,5 +212,6 @@ class Video{
         return $query->rowCount() > 0;
     }
 
+    //subscribe the user by adding it to the subscribes table
 
 }
