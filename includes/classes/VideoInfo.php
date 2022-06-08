@@ -38,10 +38,20 @@ class VideoInfo{
 
        $profileButton = ButtonProvider::createUserProfileButton($this->con, $uploadedBy);
 
+
+       if($uploadedBy == $this->userLoggedInObj->getUserName()) {
+           $actionButton = ButtonProvider::createEditVideoButton($this->video->getVideoId());
+       }
+        else {
+            //the user with the channel that we will subscribe too
+           $userToObject = new UserInfo($this->con, $uploadedBy);
+           $actionButton = ButtonProvider::createSubscribeButton($this->con,$userToObject, $this->userLoggedInObj);
+       }
+
         return "<div class='secondaryInfo'>
                     <div class='topRow'>
                        $profileButton
-                    </div>
+                    
                     <div class='uploadInfo'>
                       <span class='owner'> 
                          <a href='profile.php?username=$uploadedBy'> $uploadedBy </a>
@@ -49,6 +59,11 @@ class VideoInfo{
                        <span class='date'>
                           Published on $uploadDate
                         </span>
+                    </div>
+                    $actionButton
+                    </div>
+                    <div class='descriptionContainer'>
+                       $description
                     </div>
                 </div>";
 
