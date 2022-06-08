@@ -1,11 +1,11 @@
-function subscribe(userTo, userLoggedIn, button) {
-    if(userTo == userLoggedIn){
+function subscribe(userTo, userFrom, button) {
+    if(userTo == userFrom){
         alert("You can't subscribe to yourself");
         return;
     }
 
-    $.post("ajax/subscribe.php")
-        .done(function () {
-            console.log("DONE :)")
+    $.post("ajax/subscribe.php", {userTo: userTo, userFrom: userFrom})
+        .done(function (data) {
+            console.log(data);
         })
 }
