@@ -19,3 +19,12 @@ function subscribe(userTo, userFrom, button) {
             }
         })
 }
+
+
+//$commentAction = "postComment(this, \"$postedBy\", $videoId, null, \"comment\")";
+function postComment(button, postedBy, videoId, imagUrl, comment) {
+    $.post("ajax/postComment.php", )
+        .done(function (data) {
+
+        })
+}

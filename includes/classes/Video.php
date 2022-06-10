@@ -212,6 +212,16 @@ class Video{
         return $query->rowCount() > 0;
     }
 
-    //subscribe the user by adding it to the subscribes table
+    //getting the number of comments in the video
 
+    public function getNumberOfComments() {
+        $query = $this->con->prepare("SELECT * FROM comments WHERE videoId=:videoId");
+        $query->bindParam(":videoId", $id);
+
+        $id = $this->getVideoId();
+
+        $query->execute();
+
+        return $query->rowCount();
+    }
 }

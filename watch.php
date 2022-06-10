@@ -2,6 +2,7 @@
 require_once("includes/header.php");
 require_once("includes/classes/VideoPlayer.php");
 require_once("includes/classes/VideoInfo.php");
+require_once("includes/classes/CommentSection.php");
 
 
     if(!isset($_GET["id"])){
@@ -22,6 +23,9 @@ $video->IncrementView();
 
      $videoInfo = new VideoInfo($con, $video, $user);
      echo $videoInfo->create();
+
+    $commentSection = new CommentSection($con, $video, $user);
+    echo $commentSection->create();
     ?>
 </div>
 
