@@ -1,4 +1,5 @@
 <?php
+
 class CommentSection {
 
     private $con, $video, $userLoggedInObj;
@@ -22,7 +23,12 @@ class CommentSection {
         $commentAction = "postComment(this, \"$postedBy\", $videoId, null, \"comments\")";
         $commentButton = ButtonProvider::createButton("COMMENT", null, $commentAction, "postComment");
 
+        $comments = $this->video->getComments();
+        $commentItem = "";
 
+        foreach ($comments as $comment) {
+            $commentItem .= $comment->create();
+        }
 
         return "<div class='commentSection'>
 
@@ -37,11 +43,16 @@ class CommentSection {
                     </div>
 
                     <div class='comments'>
-
+                       $commentItem 
                     </div>
 
                 </div>";
     }
+
+
+
+
+
 
 }
 ?>

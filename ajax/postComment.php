@@ -1,23 +1,31 @@
 <?php
 require_once("../includes/config.php");
 require_once("../includes/classes/UserInfo.php");
+require_once("../includes/classes/Comment.php");
 
-$videoId = $_GET["id"];
-$username = $_SESSION["userLoggedIn"];
-$user = new UserInfo($con, $username);
+if(isset($_POST['commentText']) && isset($_POST['postedBy']) && isset($_POST['videoId'])) {
 
-if(isset($_POST['postedBy'])  && isset($_POST['comment'])){
+    $userLoggedInObj = new UserInfo($con, $_SESSION["userLoggedIn"]);
+
+    $query = $con->prepare("INSERT INTO comments(postedBy, videoId, responseTo, body)
+                            VALUES(:postedBy, :videoId, :responseTo, :body)");
+    $query->bindParam(":postedBy", $postedBy);
+    $query->bindParam(":videoId", $videoId);
+    $query->bindParam(":responseTo", $responseTo);
+    $query->bindParam(":body", $commentText);
 
     $postedBy = $_POST['postedBy'];
-    $body = $_POST['comment'];
-    $responseTo = "//TODO";
+    $videoId = $_POST['videoId'];
+    $responseTo = isset($_POST['responseTo']) ? $_POST['responseTo'] : 0;
+    $commentText = $_POST['commentText'];
 
-    $query = $con->prepare("INSERT INTO comments postedBy=:postedBy body=:body responseTo=:responseTo");
-    $query->bindParam(":postedBy", $postedBy);
-    $query->bindParam(":body", $body);
     $query->execute();
 
+    $newComment = new Comment($con, $con->lastInsertId(), $userLoggedInObj, $videoId);
+    echo $newComment->create();
 }
-
+else {
+    echo "One or more parameters are not passed into subscribe.php the file";
+}
 
 ?>
