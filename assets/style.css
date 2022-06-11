@@ -447,3 +447,7 @@ a {
 .hidden {
     display: none !important;
 }
+
+.repliesSection {
+    cursor: pointer;
+}

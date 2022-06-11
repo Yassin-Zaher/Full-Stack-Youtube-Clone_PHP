@@ -3,6 +3,7 @@ include_once("config.php");
 include_once ("head.php");
 include_once("classes/UserInfo.php");
 require_once("classes/Video.php");
+require_once("classes/VideoGrid.php");
 
 
 $userLoggedIn = isset($_SESSION["userLoggedIn"]) ? $_SESSION["userLoggedIn"] : "";
