@@ -52,6 +52,11 @@ class Video{
         return date("M j, Y", strtotime($date));
     }
 
+    public function getVideoUploadDateOriginal(){
+        return $this->sqlData["uploadDate"];
+
+    }
+
     public function getVideoPrivacy(){
         return $this->sqlData["privacy"];
     }
@@ -243,4 +248,5 @@ class Video{
 
         return $comments;
     }
+
 }

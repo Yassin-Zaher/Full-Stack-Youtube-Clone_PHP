@@ -6,6 +6,7 @@ class VideoProcessor {
     private $allowedTypes = array("mp4", "flv", "webm", "mkv", "vob", "ogv", "ogg", "avi", "wmv", "mov", "mpeg", "mpg");
 
     public function __construct($con) {
+
         $this->con = $con;
     }
 
@@ -81,6 +82,9 @@ class VideoProcessor {
 
         return $query->execute();
     }
+
+
+
 
 }
 ?>

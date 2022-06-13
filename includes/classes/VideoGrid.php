@@ -6,14 +6,40 @@ class VideoGrid {
     private $gridClass = "videoGrid";
 
     public function __construct($con, $userLoggedIn) {
-
+        $this->con = $con;
+        $this->userLoggedIn = $userLoggedIn;
     }
 
-    public function create($video, $title, $showFilter): string
-    {
+    public function create(): string{
+
+
+        $gridItems = $this->generateItems();
+
         return "<div class='$this->gridClass'>
-                   where the grid Items will go 
+                   $gridItems 
                </div>";
+    }
+    public function generateItems(): string{
+
+        $query = $this->con->prepare("SELECT * FROM videos ORDER BY RAND() LIMIT 15");
+        $query->execute();
+
+        $htmlElement = "";
+        while($row = $query->fetch(PDO::FETCH_ASSOC) ) {
+
+            $video = new Video($this->con, $row, $this->userLoggedIn);
+            $item = new VideoGridItem($video, $this->largeMode);
+            $htmlElement .= $item->create();
+        }
+        return $htmlElement;
+    }
+
+    public function generateItemsFromVideos(){
+        $query = $this->con->prepare("SELECT * FROM videos ");
+    }
+
+    public function createHeader(){
+        //TODO : CREATE THE HEADER :)
     }
 
 }

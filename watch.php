@@ -30,7 +30,12 @@ $video->IncrementView();
     ?>
 </div>
 
-<div class="suggestion"></div>
+<div class="suggestion">
+    <?php
+      $videoGrid = new VideoGrid($con, $user);
+      echo $videoGrid->create();
+    ?>
+</div>
 
 
 
