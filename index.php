@@ -1,13 +1,13 @@
 <?php require_once("includes/header.php") ?>
 
-<?php
-if(isset($_SESSION["userLoggedIn"])){
-    echo "user Logged in : " . $user->getFullName();
-} else {
-    echo "No One is Here Baby ?";
-}
+<div class='videoSection'>
+    <?php
+    $username = $_SESSION["userLoggedIn"];
+    $videoGrid = new VideoGrid($con, $username);
+    echo $videoGrid->create(null, "Recommended", false);
+    ?>
 
-?>
+</div>
 
 
 

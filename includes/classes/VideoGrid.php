@@ -10,12 +10,15 @@ class VideoGrid {
         $this->userLoggedIn = $userLoggedIn;
     }
 
-    public function create(): string{
+    public function create($videos, $title, $largeMode): string{
 
 
         $gridItems = $this->generateItems();
+        $header = $this->createHeader($title);
 
-        return "<div class='$this->gridClass'>
+        return "$header
+               <div class='$this->gridClass'>
+                    
                    $gridItems 
                </div>";
     }
@@ -38,8 +41,15 @@ class VideoGrid {
         $query = $this->con->prepare("SELECT * FROM videos ");
     }
 
-    public function createHeader(){
+    public function createHeader($title){
         //TODO : CREATE THE HEADER :)
+        $filter = "";
+        return "<div class='videoGridHeader'>
+                <div class='left'>
+                  $title
+                </div>
+                   $filter 
+               </div>";
     }
 
 }

@@ -531,3 +531,14 @@ a {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.videoGridHeader {
+    display: flex;
+    padding-bottom: 10px;
+    margin: 10px 0;
+    border-bottom: 1px solid #eBeBe8;
+}
+
+.videoGridHeader div{
+    flex: 1;
+}
