@@ -12,7 +12,7 @@ class VideoGridItem{
 
          $href = "watch.php?id=" . $this->video->getVideoId();
          return "<a href='$href'>
-                    <div>
+                    <div class='videoGridItem'>
                       $thumbnail
                       $videoDetails
                     </div>
@@ -20,23 +20,46 @@ class VideoGridItem{
      }
 
      public function getVideoThumbnail() {
-         //$this->video->getTumbnails();
-         return "<div>
-                   <img src='assets/images/yt-thumb.png' />
+         $thumbnail = $this->video->getThumbnails();;
+         $duration = $this->video->getVideoDuration();
+
+         return "<div class='thumbnail'>
+                    <img src='$thumbnail'>
+                    <div class='duration'>
+                       <span>$duration</span>
+                    </div>
                  </div>";
      }
 
     public function getVideoDetails() {
+         $title = $this->video->getVideoTitle();
+        $username = $this->video->getVideoUploadedBy();
+        $views = $this->video->getVideoViews();
+        $description = $this->createDescription();
+        $uploadedDate = $this->video->getVideoUploadDateOriginal();
+        $timespan = $this->time_elapsed_string($uploadedDate);
+
         $timespan = $this->time_elapsed_string($this->video->getVideoUploadDateOriginal());
-        return "<div class='videoSuggestionDetails'>
-                    <p>$this->video->getVideoTitle()</p>
-                    <p class='text-muted'>$this->video->getVideoUploadedBy()</p>
-                    <div class='d-flex w-100 justify-content-between'>
-                       <span>$this->video->getVideoViews() views</span>
-                       <span>.</span>
-                       <span>$timespan ago</span>
+        return "<div class='details'>
+                    <p class='title'>$title</p>
+                    <span class='username'>$username</span>
+                    <div class='stats'>
+                       <span class='viewCount'>$views views - </span>
+           
+                       <span class='timestamp'>$timespan ago</span>
                     </div>
+                    $description
                 </div>";
+    }
+
+    private function createDescription(){
+         if(!$this->largeMode) {
+             return "";
+         } else {
+             $description = $this->video->getVideoDescription();
+             $description = (strlen($description) > 350) ? substr($description, 0 , 347) . "..." : $description;
+             return "<span class='description'>$description</span>";
+         }
     }
 
     private function time_elapsed_string($datetime, $full = false) {

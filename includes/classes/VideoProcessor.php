@@ -5,9 +5,15 @@ class VideoProcessor {
     private $sizeLimit = 500000000;
     private $allowedTypes = array("mp4", "flv", "webm", "mkv", "vob", "ogv", "ogg", "avi", "wmv", "mov", "mpeg", "mpg");
 
+     private $ffprobePath;
+     private $ffmpegPath;
+
+
     public function __construct($con) {
 
         $this->con = $con;
+        $this->ffprobePath = realpath('C:\xampp\htdocs\video-tube\ffmpeg\windows\ffprobe.exe');
+        $this->ffmpegPath = realpath('C:\xampp\htdocs\video-tube\ffmpeg\windows\ffmpeg.exe');
     }
 
     public function upload($videoUploadData) {
@@ -31,10 +37,16 @@ class VideoProcessor {
                 echo "Insert query failed\n";
                 return false;
             }
+            if(!$this->generateThumbnails($tempFilePath)) {
+                echo "upload fails coul'not upload thuumnails";
+                return false;
+            }
 
             return true;
 
         }
+
+
     }
 
     private function processData($videoData, $filePath) {
@@ -73,6 +85,8 @@ class VideoProcessor {
         $query = $this->con->prepare("INSERT INTO videos(title, uploadedBy, description, privacy, category, filePath)
                                         VALUES(:title, :uploadedBy, :description, :privacy, :category, :filePath)");
 
+        $duration = $this->getVideoDuration($filePath);
+
         $query->bindParam(":title", $uploadData->title);
         $query->bindParam(":uploadedBy", $uploadData->uploadedBy);
         $query->bindParam(":description", $uploadData->description);
@@ -84,6 +98,74 @@ class VideoProcessor {
     }
 
 
+    public function generateThumbnails($filePath) {
+
+        $thumbnailSize = "210x118";
+        $numThumbnails = 3;
+        $pathToThumbnail = "uploads/videos/thumbnails";
+
+        $duration = $this->getVideoDuration($filePath);
+
+        $videoId = $this->con->lastInsertId();
+        $this->updateDuration($duration, $videoId);
+
+        for($num = 1; $num <= $numThumbnails; $num++) {
+            $imageName = uniqid() . ".jpg";
+            $interval = ($duration * 0.8) / $numThumbnails * $num;
+            $fullThumbnailPath = "$pathToThumbnail/$videoId-$imageName";
+
+            $cmd = "$this->ffmpegPath -i $filePath -ss $interval -s $thumbnailSize -vframes 1 $fullThumbnailPath 2>&1";
+
+            $outputLog = array();
+            exec($cmd, $outputLog, $returnCode);
+
+            if($returnCode != 0) {
+                //Command failed
+                foreach($outputLog as $line) {
+                    echo $line . "<br>";
+                }
+            }
+
+            $query = $this->con->prepare("INSERT INTO thumbnails(videoId, src, selected)
+                                        VALUES(:videoId, :src, :selected)");
+            $query->bindParam(":videoId", $videoId);
+            $query->bindParam(":src", $fullThumbnailPath);
+            $query->bindParam(":selected", $selected);
+
+            $selected = $num == 1 ? 1 : 0;
+
+            $success = $query->execute();
+
+            if(!$success) {
+                echo "Error inserting thumbail\n";
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function getVideoDuration($filePath) {
+        return shell_exec("$ $this->ffprobePath -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 $filePath");
+    }
+
+    private function updateDuration($duration, $videoId) {
+        $hours = floor($duration / 3600);
+        $mins = floor(($duration - ($hours*3600)) / 60);
+        $secs = floor($duration % 60);
+
+        $hours = ($hours < 1) ? "" : $hours . ":";
+        $mins = ($mins < 10) ? "0" . $mins . ":" : $mins . ":";
+        $secs = ($secs < 10) ? "0" . $secs : $secs;
+
+        $duration = $hours.$mins.$secs;
+
+        $query = $this->con->prepare("UPDATE videos SET duration=:duration WHERE id=:videoId");
+        $query->bindParam(":duration", $duration);
+        $query->bindParam(":videoId", $videoId);
+        $query->execute();
+
+    }
 
 
 }

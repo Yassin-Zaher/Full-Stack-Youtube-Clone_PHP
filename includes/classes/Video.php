@@ -249,4 +249,13 @@ class Video{
         return $comments;
     }
 
+    public function getThumbnails() {
+        $videoId = $this->getVideoId();
+        $query = $this->con->prepare("SELECT src FROM thumbnails WHERE videoId=:videoId AND selected=1");
+        $query->bindParam(":videoId", $videoId);
+        $query->execute();
+
+        return $query->fetchColumn();
+    }
+
 }
