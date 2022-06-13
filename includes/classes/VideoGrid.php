@@ -12,6 +12,11 @@ class VideoGrid {
 
     public function create($videos, $title, $largeMode): string{
 
+        if($videos == null) {
+            $gridItems = $this->generateItems();
+        }else {
+            $gridItems = $this->generateItemsFromVideos($videos);
+        }
 
         $gridItems = $this->generateItems();
         $header = $this->createHeader($title);
@@ -37,8 +42,20 @@ class VideoGrid {
         return $htmlElement;
     }
 
-    public function generateItemsFromVideos(){
-        $query = $this->con->prepare("SELECT * FROM videos ");
+    public function generateItemsFromVideos($uploadedBy){
+
+        $query = $this->con->prepare("SELECT * FROM videos WHERE uploadedBy=:uploadedBy");
+        $query->bindParam(":uploadedBy", $uploadedBy);
+        $query->execute();
+
+        $htmlElement = "";
+        while($row = $query->fetch(PDO::FETCH_ASSOC) ) {
+
+            $video = new Video($this->con, $row, $this->userLoggedIn);
+            $item = new VideoGridItem($video, $this->largeMode);
+            $htmlElement .= $item->create();
+        }
+        return $htmlElement;
     }
 
     public function createHeader($title){

@@ -13,6 +13,10 @@ class UserInfo{
             $this->sqlData = $query->fetch(PDO::FETCH_ASSOC);
         }
 
+    public static function isLoggedIn() {
+        return isset($_SESSION["userLoggedIn"]);
+}
+
     public function getUserName(){
           return $this->sqlData["userName"];
      }
@@ -58,6 +62,21 @@ class UserInfo{
         $query->execute();
 
         return $query->rowCount();
+
+    }
+
+    public function getVideoSubscriptions(){
+        $query = $this->con->prepare("SELECT userTo FROM subscribers WHERE userFrom=:userFrom");
+        $query->bindParam(":userFrom", $this->getUserName());
+        $query->execute();
+
+        $subs = array();
+
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)){
+            $user = new UserInfo($this->con, $row["userTo"]);
+            array_push($subs, $user);
+        }
+        return subs;
 
     }
 

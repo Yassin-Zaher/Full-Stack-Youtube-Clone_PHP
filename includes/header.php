@@ -5,6 +5,7 @@ include_once("classes/UserInfo.php");
 require_once("classes/Video.php");
 require_once("classes/VideoGrid.php");
 require_once("classes/VideoGridItem.php");
+require_once("classes/SubscriptionsProvider.php");
 
 
 
