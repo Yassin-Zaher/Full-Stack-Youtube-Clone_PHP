@@ -66,6 +66,7 @@ class UserInfo{
     }
 
     public function getVideoSubscriptions(){
+        //typo in the function name this function return the user subscriptions
         $username =  $this->getUserName();
         $query = $this->con->prepare("SELECT userTo FROM subscribers WHERE userFrom=:userFrom");
         $query->bindParam(":userFrom", $username);

@@ -69,4 +69,19 @@ class ButtonProvider{
 
 
     }
+
+    public static function createSignInButton($con, $username){
+
+        if(UserInfo::isLoggedIn()){
+            return ButtonProvider::createUserProfileButton($con, $username);
+        }else {
+            $href="signin.php";
+
+            return "<a href='$href' class='HeaderSignInButton'>
+                 <img class='signInImg' src='assets/images/profilePictures/signinIcon.png'>
+                 <span class='signInTxt'>SIGN IN</span>
+               </a>";
+        }
+
+    }
 }
