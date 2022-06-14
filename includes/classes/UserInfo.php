@@ -66,8 +66,9 @@ class UserInfo{
     }
 
     public function getVideoSubscriptions(){
+        $username =  $this->getUserName();
         $query = $this->con->prepare("SELECT userTo FROM subscribers WHERE userFrom=:userFrom");
-        $query->bindParam(":userFrom", $this->getUserName());
+        $query->bindParam(":userFrom", $username);
         $query->execute();
 
         $subs = array();
@@ -76,7 +77,7 @@ class UserInfo{
             $user = new UserInfo($this->con, $row["userTo"]);
             array_push($subs, $user);
         }
-        return subs;
+        return $subs;
 
     }
 

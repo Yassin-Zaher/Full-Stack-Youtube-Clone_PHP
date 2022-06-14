@@ -42,17 +42,10 @@ class VideoGrid {
         return $htmlElement;
     }
 
-    public function generateItemsFromVideos($uploadedBy){
-
-        $query = $this->con->prepare("SELECT * FROM videos WHERE uploadedBy=:uploadedBy");
-        $query->bindParam(":uploadedBy", $uploadedBy);
-        $query->execute();
-
+    public function generateItemsFromVideos($videos){
         $htmlElement = "";
-        while($row = $query->fetch(PDO::FETCH_ASSOC) ) {
-
-            $video = new Video($this->con, $row, $this->userLoggedIn);
-            $item = new VideoGridItem($video, $this->largeMode);
+        foreach ($videos as $video) {
+            $item = new VideoGridItem($video, false);
             $htmlElement .= $item->create();
         }
         return $htmlElement;

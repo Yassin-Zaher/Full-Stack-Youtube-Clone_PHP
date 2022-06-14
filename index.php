@@ -7,13 +7,15 @@
 
     // TODO::the user logged in Objects is  must fix
 
-    $subscriptionsProvider = new SubscriptionsProvider($con, $userLoggedIn);
+    $subscriptionsProvider = new SubscriptionsProvider($con, $user);
     $subscriptionsVideos = $subscriptionsProvider->getVideo();
 
-    if(UserInfo::isLoggedIn() && sizeof($subscriptionsVideos) > 0) {
-        echo $videoGrid->create("Subscriptions", $subscriptionsVideos, false);
-    }
     $videoGrid = new VideoGrid($con, $username);
+
+    if(UserInfo::isLoggedIn() && sizeof($subscriptionsVideos) > 0) {
+        echo $videoGrid->create($subscriptionsVideos,"Subscriptions", false);
+    }
+
     echo $videoGrid->create(null, "Recommended", false);
     ?>
 
