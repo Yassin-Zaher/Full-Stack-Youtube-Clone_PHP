@@ -5,9 +5,19 @@ $(document).ready(function () {
 
     if (main.hasClass("leftPadding")) {
       nav.hide();
-    } else {
+    }
+    else {
       nav.show();
     }
     main.toggleClass("leftPadding");
+
   });
+
+  $(".searchButton").on("click", function () {
+    var searchTerm = $("#mySearchTerm").val();
+    if (searchTerm == "") {
+      alert("Please fill out the vendor email field");
+      return false;
+    }
+  })
 });

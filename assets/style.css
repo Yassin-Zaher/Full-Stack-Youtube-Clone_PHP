@@ -603,3 +603,66 @@ a {
     display: block;
 }
 
+.videoGrid.large {
+   flex-direction: column;
+    flex: 1;
+
+}
+
+.videoGrid.large .videoGridItem {
+    height: auto;
+    display: flex;
+}
+
+.videoGrid.large .videoGridItem .thumbnail {
+    width: 266px;
+    height: 138px;
+    margin-right: 16px;
+
+}
+
+.videoGrid.large .videoGridItem .details {
+    max-width: 600px;
+
+}
+
+.videoGrid.large .videoGridItem .thumbnail {
+    font-size: 18px;
+    line-height: 24px;
+
+}
+
+.videoGrid.large .videoGridItem .thumbnail img{
+    width: 100%;
+    height: 100%;
+}
+
+.videoGrid.large .videoGridItem .details .description{
+    color: rgba(17, 17, 17, 0.6);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+
+
+.largeVideoGridContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.videoGridHeader .right {
+    text-align: right;
+}
+
+.videoGridHeader .right a {
+    color: rgba(17, 17, 17, 0.6);
+}
+
+.videoGridHeader .right a:after {
+    content: " |";
+}
+
+.videoGridHeader .right a:last-child:after {
+    content: "";
+}

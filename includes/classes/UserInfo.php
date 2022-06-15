@@ -4,13 +4,13 @@ class UserInfo{
 
     public $con, $sqlData;
     public function __construct($con, $userName) {
-            $this->con = $con;
+        $this->con = $con;
 
-            $query = $this->con->prepare("SELECT * FROM user WHERE userName=:un");
-            $query->bindParam(":un", $userName);
-            $query->execute();
+        $query = $this->con->prepare("SELECT * FROM user WHERE username = :un");
+        $query->bindParam(":un", $userName);
+        $query->execute();
 
-            $this->sqlData = $query->fetch(PDO::FETCH_ASSOC);
+        $this->sqlData = $query->fetch(PDO::FETCH_ASSOC);
         }
 
     public static function isLoggedIn() {

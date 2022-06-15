@@ -8,6 +8,7 @@ require_once("classes/VideoGridItem.php");
 require_once("classes/SubscriptionsProvider.php");
 require_once("classes/ButtonProvider.php");
 require_once("classes/NavigationMenuProvider.php");
+require_once("classes/TrendingProvider.php");
 
 
 
@@ -31,8 +32,8 @@ $user = new UserInfo($con, $userLoggedIn);
                               </a>
 
                               <div class="searchBarContainer">
-                                        <form action="search.php" method="GET">
-                                                  <input type="text" class="searchBar" name="term" placeholder="Search...">
+                                        <form id="searchForm" action="search.php" method="GET">
+                                                  <input type="text" class="searchBar" name="term" id="mySearchTerm" placeholder="Search...">
                                                   <button class="searchButton">
                                                             <img src="./assets/images/icons/search.png">
                                                   </button>
