@@ -239,6 +239,7 @@ a {
     color: #000;
 }
 
+
 .descriptionContainer {
     margin-left: 64px;
     max-width: 615px;
@@ -665,4 +666,33 @@ a {
 
 .videoGridHeader .right a:last-child:after {
     content: "";
+}
+.profileContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.coverContainer{
+    height: 200px;
+    position: relative;
+}
+
+.coverPhoto {
+    width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    vertical-align: middle;
+}
+
+.channelName {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
+    color: #ffffff;
+    text-align: center;
+    width: 100%;
+    letter-spacing: 5px;
 }

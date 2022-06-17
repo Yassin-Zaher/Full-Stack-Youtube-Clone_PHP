@@ -8,7 +8,7 @@ require_once("classes/VideoGridItem.php");
 require_once("classes/SubscriptionsProvider.php");
 require_once("classes/ButtonProvider.php");
 require_once("classes/NavigationMenuProvider.php");
-require_once("classes/TrendingProvider.php");
+
 
 
 
@@ -42,6 +42,7 @@ $user = new UserInfo($con, $userLoggedIn);
 
                               <div class="rightIcon">
                                         <a href="upload.php" class="uploadImgContainer">
+
                                                   <img class="upload" src="assets/images/icons/upload.png">
                                         </a>
                                         <?php
