@@ -10,6 +10,10 @@ class ProfileData{
 
     }
 
+    public function getProfileUserObj(): UserInfo{
+        return $this->profileUserObj;
+    }
+
     public function getProfileUsername() {
         return $this->profileUserObj->getUserName();
     }
@@ -25,10 +29,20 @@ class ProfileData{
     {
         return "assets/images/coverPhotos/yt-banner.jpg";
     }
-    public function getProfileUserFullName(): string
-    {
+
+    public function getProfileUserFullName(): string{
         return $this->profileUserObj->getFullName();
     }
+
+    public function getUserProfilePic () {
+        return $this->profileUserObj->profilePic();
+    }
+
+    public function getUserSubsCount () {
+        return $this->profileUserObj->getSubscribeCount();
+    }
+
+
 
 
 

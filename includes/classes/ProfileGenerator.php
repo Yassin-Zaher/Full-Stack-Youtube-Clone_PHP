@@ -43,8 +43,41 @@ class ProfileGenerator{
     {
     }
 
-    private function createHeaderSection()
-    {
+    private function createHeaderSection(){
+
+        $profilePic = $this->profileData->getUserProfilePic();
+        $fullName = $this->profileData->getProfileUserFullName();
+        $subsCount = $this->profileData->getUserSubsCount();
+        $button = $this->createSubscribeButton();
+
+        return "<div class='profileHeader'>
+                   <div class='userInfoContainer'>
+                     <img class='profileImage' src='$profilePic' alt='profile-pic'>
+                     <div class='userInfo'>
+                       <span class='title'>$fullName</span>
+                       <span class='subsCount'>$subsCount subscribers</span>
+                      </div>
+                     
+                     
+                     <div class='ButtonContainer'>
+                        $button
+                      </div>
+                      </div>
+                </div>";
+
     }
+
+
+    public function createSubscribeButton() {
+        if($this->userLoggedInObj->getUserName() == $this->profileData->getProfileUsername()) {
+            return "";
+        } else {
+            return ButtonProvider::createSubscribeButton($this->con,
+                                                         $this->profileData->getProfileUserObj(),
+                                                         $this->userLoggedInObj);
+        }
+
+    }
+
 
 }
