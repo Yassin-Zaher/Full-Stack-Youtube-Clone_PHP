@@ -38,6 +38,7 @@ class ProfileGenerator{
     private function createTabsSection()
     {
         $videosHtml = $this->createProfileVideos();
+        $detail = $this->createProfileDetails();
 
         return  "<div>
                     <ul class='nav nav-tabs'>
@@ -61,7 +62,7 @@ class ProfileGenerator{
                         </div>
                         
                         <div class='tab-pane fade' role='tabpanel' id='about'>
-                            this is the about tab
+                            $detail
                         </div>
                         
                         
@@ -125,6 +126,20 @@ class ProfileGenerator{
         return $videosHtml;
     }
 
+    public function createProfileDetails() {
+        return "<div class='row container details-profile-section'>
+                      <div class='col-8 profile-description-section'>
+                         <p>Description</p> <hr>
+                         <span>Bla bla bla</span>
+                      </div>
+                      <div class='col-4 profile-stats-section'>
+                         <p>stats</p> <hr>
+                         <span>Joined </span> <hr>
+                         <span>Views</span>
+                      </div>
+                      
+                </div>";
+    }
 
 
 

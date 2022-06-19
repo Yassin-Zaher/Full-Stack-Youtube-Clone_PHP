@@ -767,5 +767,13 @@ a {
 .notifyBtn img {
     width: 28px;
     height: 28px ;
+}
 
+.details-profile-section{
+    margin: 20px 100px;
+}
+.profile-description-section p,
+.profile-stats-section p{
+    font-weight: 500;
+    font-size: 16px;
 }
