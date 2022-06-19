@@ -23,11 +23,10 @@ function subscribe(userTo, userFrom, button) {
 // when the user clicks on the notify button
 // 'notify(this, $username)
 function notify(button, userTo, userFrom) {
-    $.post("ajax/notify.php", {userTo, userFrom})
+    $.post("ajax/notify.php", {userTo: userTo, userFrom: userFrom})
         .done(function (data) {
-
             let notifications = JSON.parse(data);
-            console.log(data);
-
+            console.log(notifications);
         })
+    console.log(userTo, userFrom);
 }

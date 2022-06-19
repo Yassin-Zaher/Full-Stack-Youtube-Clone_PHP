@@ -90,8 +90,10 @@ class ButtonProvider{
         $userTo = $userToObj->getUserName();
         $userFrom = $userLoggedInObj->getUserName();
 
+        $action = "subscribe(this, \"$userTo\", \"$userFrom\")";
+
         if($userLoggedInObj->isNotifiedTo($userToObj->getUserName())) {
-            return "<button class='notifyBtn' onclick='notify(this, $userTo, $userFrom)'>
+            return "<button class='notifyBtn' onclick='$action'>
                       <img class='notify-img' src='assets/images/notifications/active-notification.png'>
                     </button>";
         } else {

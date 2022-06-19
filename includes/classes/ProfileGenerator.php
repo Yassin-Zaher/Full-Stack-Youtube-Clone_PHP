@@ -37,17 +37,36 @@ class ProfileGenerator{
 
     private function createTabsSection()
     {
-        return  "<ul class='nav nav-tabs'>
-                      <li class='nav-item'>
-                        <a id='videos-tab' class='nav-link active' data-toggle='tab' href='#videos'>Active</a>
-                      </li>
-                      <li class='nav-item'>
-                        <a class='nav-link' href='#'>Link</a>
-                      </li>
-                      <li class='nav-item'>
-                        <a class='nav-link' href='#'>Link</a>
-                      </li>
-                    <ul";
+        $videosHtml = $this->createProfileVideos();
+
+        return  "<div>
+                    <ul class='nav nav-tabs'>
+                        <li class='nac-item' role='presentation'>
+                            <button class='nav-link' data-bs-toggle='tab' id='videos-tab' type='button' data-bs-target='#videos'
+                            role='tab' aria-controls='videos' aria-selected='true'>
+                             Videos
+                             </button>
+                        </li>
+                        
+                        <li class='nac-item' role='presentation'>
+                            <button class='nav-link' data-bs-toggle='tab' id='about-tab' type='button' data-bs-target='#about'
+                            role='tab' aria-controls='about' aria-selected='true'>
+                             About
+                             </button>
+                        </li>
+                    </ul>
+                    <div class='tab-content'>
+                        <div class='tab-pane show fade' role='tabpanel' id='videos'>
+                            $videosHtml
+                        </div>
+                        
+                        <div class='tab-pane fade' role='tabpanel' id='about'>
+                            this is the about tab
+                        </div>
+                        
+                        
+                    </div>
+               </div>";
     }
 
     private function createContentSection()
@@ -89,6 +108,24 @@ class ProfileGenerator{
         }
 
     }
+
+    public function createProfileVideos() {
+        $user = $this->profileData->getProfileUserObj();
+        $userVideosArray = $user->getUserVideos($this->userLoggedInObj);
+
+        $videosHtml = "";
+        // check if the user has any videos
+        if(sizeof($userVideosArray) > 0) {
+            $videoGrid = new VideoGrid($this->con, $this->userLoggedInObj);
+            $videosHtml = $videoGrid->create($userVideosArray, null, false);
+        } else {
+            $videosHtml =  "this user has no videos :(";
+        }
+
+        return $videosHtml;
+    }
+
+
 
 
 }

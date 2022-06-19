@@ -94,6 +94,21 @@ class UserInfo{
         return $query->rowCount() > 0;
     }
 
+    public function getUserVideos($userLoggedInObj){
+        $uploadedBy =  $this->getUserName();
+        $query = $this->con->prepare("SELECT * FROM videos WHERE uploadedBy=:uploadedBy");
+        $query->bindParam(":uploadedBy", $uploadedBy);
+        $query->execute();
+
+        $videos = array();
+
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)){
+            $video = new Video($this->con, $row, $userLoggedInObj);
+            array_push($videos, $video);
+        }
+        return $videos;
+    }
+
 
 
 
