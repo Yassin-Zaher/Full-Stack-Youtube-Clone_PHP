@@ -84,4 +84,31 @@ class ButtonProvider{
         }
 
     }
+
+    public static function createNotifyButton($con, $userToObj, $userLoggedInObj): string
+    {
+        $userTo = $userToObj->getUserName();
+        $userFrom = $userLoggedInObj->getUserName();
+
+        if($userLoggedInObj->isNotifiedTo($userToObj->getUserName())) {
+            return "<button class='notifyBtn' onclick='notify(this, $userTo, $userFrom)'>
+                      <img class='notify-img' src='assets/images/notifications/active-notification.png'>
+                    </button>";
+        } else {
+            return "<button class='notifyBtn' onclick='notify(this, \"$userTo\", \"$userFrom\")'>
+                      <img src='assets/images/notifications/notification.png'>
+                    </button>";
+        }
+    }
+
+    public static function createProfileButtons($con, $userToObj, $userLoggedInObj) {
+        $subBtn = ButtonProvider::createSubscribeButton($con, $userToObj, $userLoggedInObj);
+        $notifyBtn = ButtonProvider::createNotifyButton($con, $userToObj, $userLoggedInObj);
+
+        return "<div class='profile-buttons-section'> 
+                    $subBtn
+                    $notifyBtn
+                </div>";
+
+    }
 }

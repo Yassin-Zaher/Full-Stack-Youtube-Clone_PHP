@@ -37,6 +37,17 @@ class ProfileGenerator{
 
     private function createTabsSection()
     {
+        return  "<ul class='nav nav-tabs'>
+                      <li class='nav-item'>
+                        <a id='videos-tab' class='nav-link active' data-toggle='tab' href='#videos'>Active</a>
+                      </li>
+                      <li class='nav-item'>
+                        <a class='nav-link' href='#'>Link</a>
+                      </li>
+                      <li class='nav-item'>
+                        <a class='nav-link' href='#'>Link</a>
+                      </li>
+                    <ul";
     }
 
     private function createContentSection()
@@ -72,9 +83,9 @@ class ProfileGenerator{
         if($this->userLoggedInObj->getUserName() == $this->profileData->getProfileUsername()) {
             return "";
         } else {
-            return ButtonProvider::createSubscribeButton($this->con,
-                                                         $this->profileData->getProfileUserObj(),
-                                                         $this->userLoggedInObj);
+            return ButtonProvider::createProfileButtons($this->con,
+                                                        $this->profileData->getProfileUserObj(),
+                                                        $this->userLoggedInObj);
         }
 
     }

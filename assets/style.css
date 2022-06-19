@@ -11,7 +11,7 @@ a {
 #page-container {
     width: 100%;
     height: 100%;
-    background-color: #FAFAFA;
+    background-color: #f9f9f9;
 }
 
 #mast-head-container {
@@ -120,7 +120,7 @@ a {
 #mast-head-container .searchBarContainer .searchButton {
     height: 32px;
     border: 1px solid #d3d3d3;
-    background-color: #f8f8f8;
+    background-color: #f9f9f9;
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
     cursor: pointer;
@@ -731,4 +731,41 @@ a {
 .profileHeader .userInfo .subsCount {
     font-size: 14px;
     color: rgba(17, 17, 17, 0.6);
+}
+
+.profileHeader .ButtonContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.profileHeader .subscribeButtonContainer button {
+    padding: 8px 15px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+}
+
+
+/* ----------------------------profile buttons Section ---------------------------------*/
+.profile-buttons-section {
+    display: flex;
+}
+
+.notifyBtn {
+    border: none;
+    background-color: #f9f9f9;
+    padding: 5px;
+    cursor: pointer;
+    margin-left: 20px;
+    text-align: center;
+
+}
+.notifyBtn img {
+    width: 28px;
+    height: 28px ;
+
 }

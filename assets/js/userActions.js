@@ -20,11 +20,14 @@ function subscribe(userTo, userFrom, button) {
         })
 }
 
-
-//$commentAction = "postComment(this, \"$postedBy\", $videoId, null, \"comment\")";
-function postComment(button, postedBy, videoId, imagUrl, comment) {
-    $.post("ajax/postComment.php", )
+// when the user clicks on the notify button
+// 'notify(this, $username)
+function notify(button, userTo, userFrom) {
+    $.post("ajax/notify.php", {userTo, userFrom})
         .done(function (data) {
+
+            let notifications = JSON.parse(data);
+            console.log(data);
 
         })
 }
