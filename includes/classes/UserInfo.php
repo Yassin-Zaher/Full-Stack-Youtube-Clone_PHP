@@ -37,6 +37,10 @@ class UserInfo{
         return $this->sqlData["email"];
     }
 
+    public function getPassword() {
+        return $this->sqlData["password"];
+    }
+
     public function getSignUpDate(){
         return $this->sqlData["signUpDate"];
     }

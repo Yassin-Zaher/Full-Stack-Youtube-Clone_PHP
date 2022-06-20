@@ -105,6 +105,32 @@ class Account {
 
     }
 
+    public function updatePassword($oldPw, $pw, $pw2, $un){
+         $this->validateOldPassword($oldPw, $un);
+         $this->validatePassword($pw, $pw2);
+
+         if(empty($this->errorArray)){
+             $query = $this->con->prepare("UPDATE user SET password=:pw WHERE userName=:un");
+             $query->bindParam(":un", $un);
+             $query->bindParam(":pw", $pw);
+             return $query->execute();
+         }else {
+             return false;
+         }
+    }
+
+    public function validateOldPassword($pw, $un){
+        $query = $this->con->prepare("SELECT *  FROM user WHERE userName=:un AND password=:pw");
+        $query->bindParam(":un", $un);
+        $query->bindParam(":pw", $pw);
+
+        $query->execute();
+
+        if($query->rowCount() == 0){
+            array_push($this->errorArray, "Incorrect password");
+        }
+    }
+
     public function validateUserName($un) {
         if(strlen($un) > 25 || strlen($un) < 5) {
             array_push($this->errorArray, Constants::$userNameChars);
@@ -126,6 +152,52 @@ class Account {
             return "<span class='text-danger'>$error</span>";
         }
 
+    }
+
+    public function updateDetails($fn, $ln, $em, $un){
+         $this->validateFirstName($fn);
+         $this->validateLastName($ln);
+         $this->validateNewEmail($em, $un);
+
+         if(empty($this->errorArray)){
+             $query = $this->con->prepare("UPDATE user SET firstName=:fn, lastName=:ln, email=:em WHERE userName=:un");
+             $query->bindParam(":fn", $fn);
+             $query->bindParam(":ln", $ln);
+             $query->bindParam(":em", $em);
+             $query->bindParam(":un", $un);
+
+             return $query->execute();
+
+
+         }else {
+             return false;
+         }
+    }
+
+    public function validateNewEmail($em, $un) {
+
+
+        if(!filter_var($em, FILTER_VALIDATE_EMAIL)) {
+            array_push($this->errorArray, Constants::$emailInvalid);
+            return;
+        }
+
+        $query = $this->con->prepare("SELECT email FROM user WHERE email=:em AND username!= :un");
+        $query->bindParam(":un", $un);
+        $query->bindParam(":em", $em);
+        $query->execute();
+
+        if($query->rowCount() != 0){
+            array_push($this->errorArray, Constants::$emailTaken);
+        }
+    }
+
+    public function getFirstError(){
+         if(!empty($this->errorArray)){
+             return $this->errorArray[0];
+         }else {
+             return "";
+         }
     }
 
 }
