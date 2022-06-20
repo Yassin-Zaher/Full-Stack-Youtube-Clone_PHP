@@ -34,7 +34,7 @@ class VideoGrid {
 
             $video = new Video($this->con, $row, $this->userLoggedInObj);
             $item = new VideoGridItem($video, $this->largeMode);
-            $htmlElement .= $item->create();
+            $htmlElement .= $item->create($this->con);
         }
         return $htmlElement;
     }
@@ -43,7 +43,7 @@ class VideoGrid {
         $htmlElement = "";
         foreach ($videos as $video) {
             $item = new VideoGridItem($video, $this->largeMode);
-            $htmlElement .= $item->create();
+            $htmlElement .= $item->create($this->con);
         }
         return $htmlElement;
     }

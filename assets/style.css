@@ -487,12 +487,17 @@ a {
 
 .videoGridItem .thumbnail{
     position: relative;
-    width: 210px;
-    height: 118px;
+    width: 295px;
+    height: 166px;
+}
+
+.videoGridItem .thumbnail img{
+    width: 100%;
 }
 
 .suggestion .videoGridItem .thumbnail{
     margin-right: 8px;
+
 
 }
 
@@ -518,12 +523,18 @@ a {
 
 }
 
+.smallVideoItemCotainer {
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
 .videoGridItem  .details {
+    margin-top: 8px;
     padding-right: 24px;
     cursor: pointer;
     position: relative;
     display: flex;
-    flex-direction: column;
     width: 210px;
 }
 
@@ -542,9 +553,11 @@ a {
 }
 
 .videoGridItem .details .username,
-.videoGridItem .details .stats{
+.videoGridItem .details .stats,
+.videoGridItem .details .timestamp{
     color: rgba(17, 17, 17, 0.6);
     font-size: 13px;
+    font-weight: 500;
     overflow-x: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -849,4 +862,13 @@ a {
 
 .active:after {
     content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+.smallLogoContainer button {
+    border: none;
+    background-color: transparent;
+}
+.smallLogoContainer button img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }

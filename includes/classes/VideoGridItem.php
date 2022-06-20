@@ -6,9 +6,9 @@ class VideoGridItem{
          $this->largeMode = $largeMode;
      }
 
-     public function create(){
+     public function create($con){
          $thumbnail = $this->getVideoThumbnail();
-         $videoDetails = $this->getVideoDetails();
+         $videoDetails = $this->getVideoDetails($con);
 
          $href = "watch.php?id=" . $this->video->getVideoId();
          return "<a href='$href'>
@@ -31,7 +31,7 @@ class VideoGridItem{
                  </div>";
      }
 
-    public function getVideoDetails() {
+    public function getVideoDetails($con) {
          $title = $this->video->getVideoTitle();
         $username = $this->video->getVideoUploadedBy();
         $views = $this->video->getVideoViews();
@@ -39,16 +39,29 @@ class VideoGridItem{
         $uploadedDate = $this->video->getVideoUploadDateOriginal();
         $timespan = $this->time_elapsed_string($uploadedDate);
 
+        $href = "profile.php?$username";
+
+        $user = new UserInfo($con, $username);
+        $logo = ButtonProvider::createHyperButton("", $user->profilePic(), $href, "smallProfileImg");
+
         $timespan = $this->time_elapsed_string($this->video->getVideoUploadDateOriginal());
         return "<div class='details'>
+                    <div class='smallLogoContainer'>
+                      $logo
+                    </div>
+                    
+                    <div class='smallVideoItemCotainer'>
                     <p class='title'>$title</p>
                     <span class='username'>$username</span>
                     <div class='stats'>
-                       <span class='viewCount'>$views views - </span>
+                       <span class='viewCount'>$views views • </span>
            
                        <span class='timestamp'>$timespan ago</span>
                     </div>
                     $description
+                   </div>
+                    
+                    
                 </div>";
     }
 
