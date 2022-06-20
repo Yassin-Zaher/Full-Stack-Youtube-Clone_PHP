@@ -105,7 +105,7 @@ if(isset($_POST["changeUserPassword"])){
                     value="<?php echo $lastName?>">
                 </div>
             </div>
-                <input type="submit" name="changeUserInfo" class="btn btn-primary mt-3" value="SAVE">
+                <input type="submit" name="changeUserInfo" class="mt-3 changeUserInfo" value="SAVE">
 
         </form>
         <hr>
@@ -133,7 +133,7 @@ if(isset($_POST["changeUserPassword"])){
                 </div>
             </div>
 
-            <input type="submit" name="changeUserPassword" class="btn btn-primary mt-3" value="SAVE">
+            <input type="submit" name="changeUserPassword" class="changeUserPassword mt-3" value="SAVE">
         </form>
 
 

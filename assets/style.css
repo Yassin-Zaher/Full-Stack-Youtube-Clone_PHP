@@ -825,3 +825,18 @@ a {
 .settings-header .header-assets {
     display: flex;
 }
+
+
+.settings-body form input{
+    width: 350px;
+}
+
+.changeUserInfo , .changeUserPassword {
+    width: 110px !important;
+    background-color: #008eef;
+    border-radius: 3px;
+    color: #eeeeee;
+    font-size: 16px;padding: 8px;
+    font-weight: 500;
+    border: none;
+}
