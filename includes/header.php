@@ -43,7 +43,7 @@ $user = new UserInfo($con, $userLoggedIn);
                               <div class="rightIcon">
                                         <a href="upload.php" class="uploadImgContainer">
 
-                                                  <img class="upload" src="assets/images/icons/upload.png">
+                                                  <img class="upload" src="assets/images/icons/add-video.png">
                                         </a>
                                         <?php
                                         echo ButtonProvider::createSignInButton($con, $userLoggedIn);
