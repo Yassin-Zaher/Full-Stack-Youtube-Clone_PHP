@@ -41,32 +41,29 @@ class ProfileGenerator{
         $detail = $this->createProfileDetails();
 
         return  "<div>
-                    <ul class='nav nav-tabs'>
-                        <li class='nac-item' role='presentation'>
-                            <button class='nav-link' data-bs-toggle='tab' id='videos-tab' type='button' data-bs-target='#videos'
-                            role='tab' aria-controls='videos' aria-selected='true'>
-                             Videos
-                             </button>
+                    <!-- Tabs navs -->
+                    <ul class='nav nav-tabs' role='tablist'>
+                        <li class='nav-item'>
+                            <a class='nav-link active' id='videos-tab' data-toggle='tab' 
+                            href='#videos' role='tab' aria-controls='videos' aria-selected='true'>VIDEOS</a>
                         </li>
-                        
-                        <li class='nac-item' role='presentation'>
-                            <button class='nav-link' data-bs-toggle='tab' id='about-tab' type='button' data-bs-target='#about'
-                            role='tab' aria-controls='about' aria-selected='true'>
-                             About
-                             </button>
+                        <li class='nav-item'>
+                             <a class='nav-link' id='about-tab' data-toggle='tab' href='#about' role='tab' 
+                            aria-controls='about' aria-selected='false'>ABOUT</a>
                         </li>
-                    </ul>
-                    <div class='tab-content'>
-                        <div class='tab-pane show fade' role='tabpanel' id='videos'>
-                            $videosHtml
-                        </div>
-                        
-                        <div class='tab-pane fade' role='tabpanel' id='about'>
-                            $detail
-                        </div>
-                        
-                        
+                </ul>
+                    <!-- Tabs navs -->
+                    
+                    <!-- Tabs content -->
+                    <div class='tab-content channelContent'>
+                    <div class='tab-pane fade show active' id='videos' role='tabpanel' aria-labelledby='videos-tab'>
+                        $videosHtml
                     </div>
+                    <div class='tab-pane fade' id='about' role='tabpanel' aria-labelledby='about-tab'>
+                        $detail
+                    </div>
+                </div>
+<!-- Tabs content -->
                </div>";
     }
 
@@ -111,8 +108,7 @@ class ProfileGenerator{
     }
 
     public function createProfileVideos() {
-        $user = $this->profileData->getProfileUserObj();
-        $userVideosArray = $user->getUserVideos($this->userLoggedInObj);
+        $userVideosArray = $this->profileData->getUserVideos($this->userLoggedInObj);
 
         $videosHtml = "";
         // check if the user has any videos
@@ -127,15 +123,30 @@ class ProfileGenerator{
     }
 
     public function createProfileDetails() {
+        $user = $this->profileData->getProfileUserObj();
+        $sqldate = $user->getSignUpDate();
+        $date = strtotime($sqldate);
+        $finalDate =  date("j F Y", $date);
+        $numOfViews = $this->profileData->getNumberOfViews();
+        $username = $user->getUserName();
+        $firstName = $user->getFirstName();
+        $lastName = $user->getLastName();
+
+
+
         return "<div class='row container details-profile-section'>
                       <div class='col-8 profile-description-section'>
-                         <p>Description</p> <hr>
-                         <span>Bla bla bla</span>
+                         <p>General Info</p> 
+                         <span> first Name : $firstName</span> <br>
+                         <span> last Name : $lastName</span> <br>
+                         <span> user name : $username</span> <br>
+                         
+                         
                       </div>
-                      <div class='col-4 profile-stats-section'>
+                      <div class='col-2 profile-stats-section'>
                          <p>stats</p> <hr>
-                         <span>Joined </span> <hr>
-                         <span>Views</span>
+                         <span>Joined $finalDate</span> <hr>
+                         <span>$numOfViews Views</span>
                       </div>
                       
                 </div>";

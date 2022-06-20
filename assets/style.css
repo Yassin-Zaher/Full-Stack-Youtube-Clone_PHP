@@ -777,3 +777,15 @@ a {
     font-weight: 500;
     font-size: 16px;
 }
+
+.channelContent{
+    padding: 20px;
+    background-color: #FFF;
+    border: 1px solid #DDD;
+    border-top: none;
+
+}
+
+.nav-item {
+    color: rgba(17, 17, 17, 0.6);
+}

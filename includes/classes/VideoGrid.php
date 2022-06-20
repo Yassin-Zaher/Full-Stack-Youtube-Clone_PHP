@@ -71,12 +71,16 @@ class VideoGrid {
 
         }
 
-        return "<div class='videoGridHeader'>
+        if(!$title == null) {
+            return "<div class='videoGridHeader'>
                 <div class='left'>
                   $title
                 </div>
                    $filter 
                </div>";
+        } else {
+            return "";
+        }
     }
 
     public function createLarge($videos, $title, $showFilter) {

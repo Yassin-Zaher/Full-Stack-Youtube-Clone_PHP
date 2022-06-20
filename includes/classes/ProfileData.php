@@ -42,9 +42,33 @@ class ProfileData{
         return $this->profileUserObj->getSubscribeCount();
     }
 
+    public function getSignUpDate(){
+        return $this->profileUserObj->getSignUpDate();
+    }
 
+    public function getNumberOfViews(){
+        $username = $this->profileUserObj->getUserName();
+        $query = $this->con->prepare("SELECT SUM(views) AS numViews FROM videos WHERE uploadedBy=:uploadedBy");
+        $query->bindParam(":uploadedBy", $username);
+        $query->execute();
 
+        $views = $query->fetch(PDO::FETCH_ASSOC);
+        return $views["numViews"];
+    }
 
+    public function getUserVideos($userLoggedInObj){
+        $uploadedBy =  $this->profileUserObj->getUserName();
+        $query = $this->con->prepare("SELECT * FROM videos WHERE uploadedBy=:uploadedBy");
+        $query->bindParam(":uploadedBy", $uploadedBy);
+        $query->execute();
 
+        $videos = array();
+
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)){
+            $video = new Video($this->con, $row, $userLoggedInObj);
+            array_push($videos, $video);
+        }
+        return $videos;
+    }
 
 }
