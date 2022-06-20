@@ -110,8 +110,15 @@ if(isset($_POST["changeUserPassword"])){
         </form>
         <hr>
 
-        <h5 class="mb-3">Update password</h5>
+        <div class="h5 mb-3 mt-3 d-flex justify-content-between"
+            data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                Update password
+            <span class="collapsible"></span>
+        </div>
 
+
+
+        <div  class="collapse" id="collapseExample">
         <form action="settings.php" method="post">
             <?php echo $passwordMsg?>
             <div class="form-group row">
@@ -135,6 +142,8 @@ if(isset($_POST["changeUserPassword"])){
 
             <input type="submit" name="changeUserPassword" class="changeUserPassword mt-3" value="SAVE">
         </form>
+
+        </div>
 
 
     </div>

@@ -1,6 +1,6 @@
 <?php
 include_once("includes/header.php");
-require_once("classes/TrendingProvider.php");
+require_once("includes/classes/TrendingProvider.php");
 
 $trendingProvider = new TrendingProvider($con, $user);
 $trendingVideos  = $trendingProvider->getVideo();
