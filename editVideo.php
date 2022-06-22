@@ -21,3 +21,15 @@ if($video->getVideoUploadedBy() != $user->getUserName()){
 
 
 ?>
+
+<div class="editVideoContainer">
+
+    <div class="topSection">
+        <?php
+        $videoPlayer = new VideoPlayer($video);
+        echo $videoPlayer->create();
+        ?>
+    </div>
+    <div class="bottomSection"></div>
+
+</div>

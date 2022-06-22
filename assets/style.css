@@ -480,6 +480,12 @@ a {
     height: auto;
 }
 
+.heading + .navigationItem img{
+    width: 40px;
+    height: 40px !important;
+    border-radius: 50%;
+}
+
 .videoGridItem{
     margin-right: 4px;
     margin-bottom: 24px;
@@ -535,6 +541,8 @@ a {
     cursor: pointer;
     position: relative;
     display: flex;
+    flex-direction: column;
+    flex-direction: column;
     width: 210px;
 }
 
@@ -592,11 +600,13 @@ a {
 }
 
 #side-nav-container .navigationItems{
+    width: ;
    overflow: auto;
 }
 
 #side-nav-container .navigationItem{
     height: 48px;
+    width: 210px;
     display: flex;
 }
 
@@ -860,9 +870,7 @@ a {
     color: white;
 }
 
-.active:after {
-    content: "\2796"; /* Unicode character for "minus" sign (-) */
-}
+
 .smallLogoContainer button {
     border: none;
     background-color: transparent;

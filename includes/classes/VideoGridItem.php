@@ -46,6 +46,38 @@ class VideoGridItem{
 
         $timespan = $this->time_elapsed_string($this->video->getVideoUploadDateOriginal());
         return "<div class='details'>
+                  
+                
+                    <p class='title'>$title</p>
+                    <span class='username'>$username</span>
+                    <div class='stats'>
+                       <span class='viewCount'>$views views •     </span>
+           
+                       <span class='timestamp'>$timespan ago</span>
+                    </div>
+                    $description
+        
+                    
+                    
+                </div>";
+    }
+
+
+    public function getVideoDetailsLarge($con) {
+        $title = $this->video->getVideoTitle();
+        $username = $this->video->getVideoUploadedBy();
+        $views = $this->video->getVideoViews();
+        $description = $this->createDescription();
+        $uploadedDate = $this->video->getVideoUploadDateOriginal();
+        $timespan = $this->time_elapsed_string($uploadedDate);
+
+        $href = "profile.php?$username";
+
+        $user = new UserInfo($con, $username);
+        $logo = ButtonProvider::createHyperButton("", $user->profilePic(), $href, "smallProfileImg");
+
+        $timespan = $this->time_elapsed_string($this->video->getVideoUploadDateOriginal());
+        return "<div class='details'>
                     <div class='smallLogoContainer'>
                       $logo
                     </div>
@@ -54,7 +86,7 @@ class VideoGridItem{
                     <p class='title'>$title</p>
                     <span class='username'>$username</span>
                     <div class='stats'>
-                       <span class='viewCount'>$views views • </span>
+                       <span class='viewCount'>$views views •     </span>
            
                        <span class='timestamp'>$timespan ago</span>
                     </div>
