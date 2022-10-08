@@ -19,7 +19,7 @@ if(isset($_POST["signupButton"])){
     $wasSuccessful = $account->register($firstName, $lastName, $userName, $email, $email2, $password, $password2);
 
     if($wasSuccessful) {
-        $_SESSION["userLoggedIn"] = $userName;
+            
         header("Location: index.php");
     }
 
