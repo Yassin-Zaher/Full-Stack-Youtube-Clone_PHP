@@ -44,7 +44,7 @@ Me-Tueb is a video scharing & uploading site containing standard features of
 - open  localhost/phpmyadmin.
 - create new database named videotube and  import.
 - browse to  [VideoTube/database/videotube.sql] and import db.
-- open your browser ( be awre of port seeting in XAMPP or WAMP)
+- open your browser ( be aware of port settings in XAMPP or WAMP)
 - go to localhost/videotube And Voila!.
 
 
